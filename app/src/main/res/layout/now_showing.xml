@@ -28,7 +28,7 @@
                 android:id="@+id/ivNowShowing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_movie"
+                android:src="@drawable/ic_action_movie_light"
                 android:contentDescription="@string/now_showing"
                 android:layout_weight="1" />
 
@@ -49,16 +49,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNowShowing"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNowShowing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
