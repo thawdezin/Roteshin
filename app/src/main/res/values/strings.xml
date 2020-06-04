@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Roteshin</string>
     <string name="search">Search</string>
+    <string name="now_showing">Now Showing</string>
+    <string name="see_all">See all</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
 </resources>
