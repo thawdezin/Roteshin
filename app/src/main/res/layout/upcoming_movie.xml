@@ -71,7 +71,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:contentDescription="@string/popular_movies"
-            android:src="@drawable/ic_action_favourite_light"
+            android:src="@drawable/ic_action_upcoming_light"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
