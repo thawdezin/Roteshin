@@ -1,4 +1,4 @@
-package com.thawdezin.roteshin;
+package com.thawdezin.roteshin.ui.activities.base;
 
 
 import android.graphics.PorterDuff;
@@ -14,6 +14,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+
+import com.thawdezin.roteshin.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

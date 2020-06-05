@@ -1,4 +1,4 @@
-package com.thawdezin.roteshin;
+package com.thawdezin.roteshin.ui.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -6,11 +6,19 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 
+import com.thawdezin.roteshin.R;
+import com.thawdezin.roteshin.ui.activities.base.BaseActivity;
+
+
 public class MainActivity extends BaseActivity {
+
+    private String TAG = "Main Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
     }
 
