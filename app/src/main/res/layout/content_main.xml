@@ -43,7 +43,7 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.97" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/appFooter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
