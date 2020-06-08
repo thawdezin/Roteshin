@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,77 +7,70 @@
     android:layout_weight="1"
     android:id="@+id/cvUpcomingMovie"
     android:layout_gravity="center"
-    android:layout_margin="2dp"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="1dp"
-    card_view:cardUseCompatPadding="true">
+    android:layout_margin="2dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUpcomingMovie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.497"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/tvUpcomingMovieCount" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUpcomingMovie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.497"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvUpcomingMovieCount" />
+    <TextView
+        android:id="@+id/tvSeeAllforUpcomingMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:text="@string/see_all"
+        android:textAlignment="textEnd"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvSeeAllforUpcomingMovie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="@string/see_all"
-            android:textAlignment="textEnd"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvUpcomingMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/upcoming_movies"
+        card_view:layout_constraintStart_toEndOf="@+id/ivUpcomingMovie"
+        card_view:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvUpcomingMovie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:text="@string/upcoming_movies"
-            card_view:layout_constraintStart_toEndOf="@+id/ivUpcomingMovie"
-            card_view:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvUpcomingMovieCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        tools:text="10 movies"
+        card_view:layout_constraintBottom_toBottomOf="@+id/ivUpcomingMovie"
+        card_view:layout_constraintStart_toEndOf="@+id/ivUpcomingMovie"
+        card_view:layout_constraintTop_toBottomOf="@+id/tvUpcomingMovie" />
 
-        <TextView
-            android:id="@+id/tvUpcomingMovieCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            tools:text="10 movies"
-            card_view:layout_constraintBottom_toBottomOf="@+id/ivUpcomingMovie"
-            card_view:layout_constraintStart_toEndOf="@+id/ivUpcomingMovie"
-            card_view:layout_constraintTop_toBottomOf="@+id/tvUpcomingMovie" />
-
-        <ImageView
-            android:id="@+id/ivUpcomingMovie"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/popular_movies"
-            android:src="@drawable/ic_action_upcoming_light"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/ivUpcomingMovie"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/popular_movies"
+        android:src="@drawable/ic_action_upcoming_light"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>
+
 
 
 
