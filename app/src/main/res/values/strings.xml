@@ -1,9 +1,15 @@
 <resources>
+
+    <!-- Common -->
     <string name="app_name">Roteshin</string>
-    <string name="search">Search</string>
+
+    <!--MainActivity -->
+    <string name="movie_search">Movie Search</string>
     <string name="now_showing">Now Showing</string>
     <string name="see_all">See all</string>
     <string name="popular_movies">Popular Movies</string>
     <string name="upcoming_movies">Upcoming Movies</string>
+
+    <!-- Splash Screen -->
     <string name="lbl_splash_intro">The cinema for you</string>
 </resources>

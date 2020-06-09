@@ -3,8 +3,6 @@ package com.thawdezin.roteshin.ui.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-//import android.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 
