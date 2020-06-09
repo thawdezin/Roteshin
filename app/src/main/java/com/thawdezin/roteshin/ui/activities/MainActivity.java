@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setupToolbar(false);
-        setupToolbarText("Rote Shin");
+        //setupToolbarText("Rote Shin");
 
     }
 

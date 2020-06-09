@@ -11,8 +11,6 @@
         <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -24,6 +22,27 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
+    <!-- Toolbar -->
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.Headline6</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.App.Subtitle1</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryDarkColor</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/ubuntu</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/ubuntu</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+    </style>
 
 </resources>

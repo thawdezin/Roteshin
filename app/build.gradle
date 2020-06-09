@@ -9,7 +9,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -17,12 +17,12 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue 'string', 'lbl_app_version', 'Version ' + defaultConfig.versionName
+            resValue 'string', 'lbl_app_name_version', 'Roteshin (Version ' + defaultConfig.versionName + ')'
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue 'string', 'lbl_app_version', 'Version ' + defaultConfig.versionName
+            resValue 'string', 'lbl_app_name_version', 'Roteshin (Version ' + defaultConfig.versionName + ')'
         }
     }
     compileOptions {
