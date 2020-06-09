@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".ui.activities.MainActivity">
-
-<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:menu="@menu/search_menu"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-</com.google.android.material.appbar.AppBarLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:menu="@menu/search_menu"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-<include layout="@layout/content_main" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/contentMain"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/FooterGuideLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/now_showing" />
+            <include layout="@layout/popular_movie" />
+            <include layout="@layout/upcoming_movie" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/appFooterTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:gravity="center_horizontal"
+        android:backgroundTint="@color/primaryLightColor"
+        android:background="@color/primaryLightColor"
+        android:textColor="@color/primaryTextColor"
+        android:layout_gravity="bottom"
+        android:textAlignment="center"
+        android:text="@string/app_name" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
