@@ -17,8 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
             app:menu="@menu/search_menu"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -26,9 +25,10 @@
         android:id="@+id/contentMain"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="horizontal"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/FooterGuideLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,22 +43,21 @@
             <include layout="@layout/popular_movie" />
             <include layout="@layout/upcoming_movie" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAppFooter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:gravity="center_horizontal"
+                android:backgroundTint="@color/primaryLightColor"
+                android:background="@color/primaryLightColor"
+                android:textColor="@color/primaryTextColor"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"
+                android:text="@string/lbl_app_name_version" />
+
         </LinearLayout>
 
     </ScrollView>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/appFooterTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:gravity="center_horizontal"
-        android:backgroundTint="@color/primaryLightColor"
-        android:background="@color/primaryLightColor"
-        android:textColor="@color/primaryTextColor"
-        android:layout_gravity="bottom"
-        android:textAlignment="center"
-        android:text="@string/lbl_app_name_version" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
