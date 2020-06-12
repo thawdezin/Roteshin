@@ -14,20 +14,19 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="?actionBarSize"
             app:title="@string/app_name"
-            app:menu="@menu/search_menu"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+            style="?attr/toolbarStyle" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/contentMain"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/FooterGuideLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,16 +47,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
+                android:layout_marginTop="24dp"
                 android:gravity="center_horizontal"
-                android:backgroundTint="@color/primaryLightColor"
-                android:background="@color/primaryLightColor"
-                android:textColor="@color/primaryTextColor"
                 android:layout_gravity="bottom"
                 android:textAlignment="center"
                 android:text="@string/lbl_app_name_version" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,12 +3,22 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorOnPrimary">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">#ffffff</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
-        <item name="colorOnSecondary">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">#ffffff</item>
         <item name="fontFamily">@font/ubuntu</item>
         <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="toolbarStyle">@style/MyToolbarStyle</item>
+        <item name="android:statusBarColor">@color/primaryDarkColor</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
+        <item name="shapeAppearanceMediumComponent">@style/MyCardViewDesign</item>
+    </style>
+
+    <style name="MyCardViewDesign" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -22,27 +32,23 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <!-- Toolbar -->
-    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
-        <item name="titleTextAppearance">@style/TextAppearance.App.Headline6</item>
-        <item name="subtitleTextAppearance">@style/TextAppearance.App.Subtitle1</item>
-    </style>
-
-    <style name="ThemeOverlay.App.Toolbar" parent="">
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorOnPrimary">@color/primaryDarkColor</item>
-    </style>
-
-    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/ubuntu</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
-    </style>
-
-    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/ubuntu</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
+    <style name="MyToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
     </style>
 
 </resources>
+
+<!--    <style name="MyMaterialCardView" parent="Widget.MaterialComponents.CardView">-->
+<!--        <item name="shapeAppearanceMediumComponent">@style/AppAlertShapeComponent</item>-->
+<!--        <item name="shapeAppearanceOverlay">@style/MaterialCardViewDesign</item>-->
+<!--    </style>-->
+
+<!--    <style name="MaterialCardViewDesign" parent="">-->
+<!--        <item name="cornerFamily">rounded</item>-->
+<!--        <item name="cornerSize">16dp</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppAlertShapeComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">-->
+<!--        <item name="cornerFamily">rounded</item>-->
+<!--        <item name="cornerSize">16dp</item>-->
+<!--    </style>-->
+
