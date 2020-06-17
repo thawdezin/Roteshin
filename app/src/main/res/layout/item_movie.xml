@@ -17,8 +17,8 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMovie"
             style="@style/App.ShapeAppearance.Medium"
-            android:layout_width="100dp"
-            android:layout_height="125dp"
+            android:layout_width="@dimen/item_movie_width"
+            android:layout_height="@dimen/item_movie_height"
             app:srcCompat="@drawable/place_holder"
             />
 
@@ -32,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_gravity="center"
+        android:singleLine="true"
         android:textAppearance="?textAppearanceHeadline6"
         tools:text="Movie Name" />
 
@@ -42,6 +43,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:singleLine="true"
         android:layout_gravity="start"
         android:textAppearance="?textAppearanceBody1"
         tools:text="Genre" />

@@ -20,41 +20,55 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/contentMain"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_main"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/FooterGuideLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/contentMain"
+            tools:showIn="@layout/activity_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/FooterGuideLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <include layout="@layout/now_showing" />
-            <include layout="@layout/popular_movie" />
-            <include layout="@layout/upcoming_movie" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvAppFooter"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center_horizontal"
-                android:layout_gravity="bottom"
-                android:textAlignment="center"
-                android:text="@string/lbl_app_name_version" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <include layout="@layout/now_showing" />
+                <include layout="@layout/popular_movie" />
+                <include layout="@layout/upcoming_movie" />
 
-    </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAppFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="bottom"
+                    android:textAlignment="center"
+                    android:text="@string/lbl_app_name_version" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <include layout="@layout/layout_loading" />
+
+        <include layout="@layout/layout_error" />
+
+
+
+    </FrameLayout>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
