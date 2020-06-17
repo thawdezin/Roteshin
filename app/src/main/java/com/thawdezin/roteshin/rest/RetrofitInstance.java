@@ -1,5 +1,4 @@
 package com.thawdezin.roteshin.rest;
-import com.thawdezin.roteshin.model.NowPlaying;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
