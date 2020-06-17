@@ -11,21 +11,25 @@
         <item name="android:fontFamily">@font/ubuntu</item>
         <item name="toolbarStyle">@style/MyToolbarStyle</item>
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
-        <item name="shapeAppearanceMediumComponent">@style/MyCardViewDesign</item>
+
     </style>
 
-    <style name="MyCardViewDesign" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="App.ShapeAppearance.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">22dp</item>
         <item name="cornerSizeBottomLeft">22dp</item>
+    </style>
 
-<!--        <item name="cornerFamily">rounded</item>-->
-<!--        <item name="cornerFamilyTopRight">cut</item>-->
-<!--        <item name="cornerFamilyBottomRight">cut</item>-->
-<!--        <item name="cornerSizeTopLeft">32dp</item>-->
-<!--        <item name="cornerSizeBottomLeft">32dp</item>-->
+    <style name="App.ShapeAppearance.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">22dp</item>
+        <item name="cornerSizeBottomLeft">22dp</item>
+    </style>
+
+    <style name="App.ShapeAppearance.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">22dp</item>
+        <item name="cornerSizeBottomLeft">22dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -43,19 +47,3 @@
     </style>
 
 </resources>
-
-<!--    <style name="MyMaterialCardView" parent="Widget.MaterialComponents.CardView">-->
-<!--        <item name="shapeAppearanceMediumComponent">@style/AppAlertShapeComponent</item>-->
-<!--        <item name="shapeAppearanceOverlay">@style/MaterialCardViewDesign</item>-->
-<!--    </style>-->
-
-<!--    <style name="MaterialCardViewDesign" parent="">-->
-<!--        <item name="cornerFamily">rounded</item>-->
-<!--        <item name="cornerSize">16dp</item>-->
-<!--    </style>-->
-
-<!--    <style name="AppAlertShapeComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">-->
-<!--        <item name="cornerFamily">rounded</item>-->
-<!--        <item name="cornerSize">16dp</item>-->
-<!--    </style>-->
-
