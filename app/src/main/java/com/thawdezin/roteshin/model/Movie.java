@@ -13,8 +13,8 @@ public class Movie {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("posterThumbnailUrl")
-    private String posterThumbnailUrl;
+    @SerializedName("posterPath")
+    private String posterPath;
 
     @SerializedName("genresList")
     private GenresList genresList;
@@ -35,14 +35,6 @@ public class Movie {
         this.id = id;
     }
 
-    public String getPosterThumbnailUrl() {
-        return posterThumbnailUrl;
-    }
-
-    public void setPosterThumbnailUrl(String posterThumbnailUrl) {
-        this.posterThumbnailUrl = posterThumbnailUrl;
-    }
-
     public GenresList getGenresList() {
         return genresList;
     }
@@ -51,13 +43,25 @@ public class Movie {
         this.genresList = genresList;
     }
 
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+    
     @Override
     public String toString() {
         return "Movie{" +
                 "movieTitle='" + movieTitle + '\'' +
                 ", id=" + id +
-                ", posterThumbnailUrl='" + posterThumbnailUrl + '\'' +
+                ", posterPath='" + posterPath + '\'' +
                 ", genresList=" + genresList +
                 '}';
+    }
+
+    public String getPosterThumbnailUrl(){
+        return "http://image.tmdb.org/t/p/w500"+getPosterPath();
     }
 }

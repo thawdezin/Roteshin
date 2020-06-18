@@ -1,13 +1,20 @@
 package com.thawdezin.roteshin.ui.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 
 import com.thawdezin.roteshin.R;
+import com.thawdezin.roteshin.model.GenresList;
+import com.thawdezin.roteshin.rest.RestClient;
+import com.thawdezin.roteshin.rest.RetrofitCallbackHelper;
 import com.thawdezin.roteshin.ui.activities.base.BaseActivity;
+
+import java.util.List;
+import retrofit2.Call;
 
 
 public class MainActivity extends BaseActivity {
@@ -17,9 +24,50 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setupToolbar(false);
-        //setupToolbarText("Rote Shin");
+
+        final Call<GenresList> getGenre = RestClient.getGenreEndPoint().getGenresList("afd84ed60249491a627b9fb517b38ae0");
+        RestClient.enqueue(this, getGenre, new RetrofitCallbackHelper<GenresList>() {
+
+            @Override
+            protected void onSuccess(@NonNull GenresList data, int responseCode) {
+                Log.e(TAG,"Success");
+            }
+
+            @Override
+            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+                Log.e(TAG,"Fail");
+            }
+
+            @Override
+            protected void onComplete() {
+                Log.e(TAG,"Complete");
+            }
+
+        });
+
+//        final Call<List<GenresList>> gg = RestClient.getGenreEndPoint().getGenres("afd84ed60249491a627b9fb517b38ae0");
+//        RestClient.enqueue(this, gg, new RetrofitCallbackHelper<List<GenresList>>() {
+//
+//
+//
+//            @Override
+//            protected void onSuccess(@NonNull List<GenresList> data, int responseCode) {
+//                Log.e(TAG,"Success");
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+//                Log.e(TAG,"Fail");
+//            }
+//
+//            @Override
+//            protected void onComplete() {
+//                Log.e(TAG,"Complete");
+//            }
+//
+//
+//        });
 
     }
 

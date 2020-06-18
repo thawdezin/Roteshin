@@ -19,6 +19,7 @@
             style="@style/App.ShapeAppearance.Medium"
             android:layout_width="@dimen/item_movie_width"
             android:layout_height="@dimen/item_movie_height"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/place_holder"
             />
 
