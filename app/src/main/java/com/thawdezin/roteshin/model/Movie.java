@@ -50,7 +50,7 @@ public class Movie {
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
-    
+
     @Override
     public String toString() {
         return "Movie{" +
