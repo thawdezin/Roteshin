@@ -1,5 +1,6 @@
 package com.thawdezin.roteshin.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,16 +8,24 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Movie {
 
-    @SerializedName("movieTitle")
+
+    @SerializedName("title")
+    @Expose
     private String movieTitle;
 
+
     @SerializedName("id")
+    @Expose
     private int id;
 
-    @SerializedName("posterPath")
+
+    @SerializedName("poster_path")
+    @Expose
     private String posterPath;
 
-    @SerializedName("genresList")
+
+    @SerializedName("genre_ids")
+    @Expose
     private GenresList genresList;
 
     public String getMovieTitle() {

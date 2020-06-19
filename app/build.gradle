@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.thawdezin.roteshin"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0.0"
@@ -44,8 +44,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     // retrofit
+    implementation 'com.squareup.okhttp3:okhttp:3.14.7'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+
 
     //CoordinatorLayout
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"

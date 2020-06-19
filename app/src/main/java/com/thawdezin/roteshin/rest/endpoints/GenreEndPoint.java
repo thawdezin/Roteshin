@@ -1,12 +1,11 @@
 package com.thawdezin.roteshin.rest.endpoints;
 
-import com.thawdezin.roteshin.model.GenresList;
+import com.thawdezin.roteshin.model.Genres;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -14,9 +13,17 @@ import retrofit2.http.Query;
  */
 public interface GenreEndPoint {
 
-    @POST("genre/movie/list")
-    Call<GenresList> getGenresList(@Query("api_key") String api_key);
+    @GET("/3/genre/movie/list")
+    Call<Genres> getGenresList(
+            @Query("api_key") String api_key,
+            @Query("language") String language,
+            @Query("page") int pageNo
+    );
 
-    @GET("genre/movie/list")
-    Call<List<GenresList>> getGenres(@Query("api_key") String api_key);
+    @GET("/3/genre/movie/list")
+    Call<List<Genres>> getGenres(
+            @Query("api_key") String api_key,
+            @Query("language") String language,
+            @Query("page") int pageNo
+    );
 }

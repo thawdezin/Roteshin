@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.thawdezin.roteshin.R;
-import com.thawdezin.roteshin.model.GenresList;
+import com.thawdezin.roteshin.model.Genres;
+import com.thawdezin.roteshin.model.HomeMovie;
+import com.thawdezin.roteshin.model.Movie;
+import com.thawdezin.roteshin.model.MovieResult;
+import com.thawdezin.roteshin.model.Result;
 import com.thawdezin.roteshin.rest.RestClient;
 import com.thawdezin.roteshin.rest.RetrofitCallbackHelper;
-import com.thawdezin.roteshin.rest.endpoints.GenreEndPoint;
 import com.thawdezin.roteshin.ui.activities.base.BaseActivity;
 
 import java.util.List;
@@ -24,79 +30,275 @@ public class MainActivity extends BaseActivity {
 
     private String TAG = "Main Activity";
 
+    NestedScrollView contentMain;
+    ConstraintLayout contentLoading;
+    ConstraintLayout contentError;
+
+    int vGone = View.GONE;
+    int vVisible = View.VISIBLE;
+
+    HomeMovie homeMovie;
+
+    public static String LANGUAGE = "en-US";
+    public static int PAGE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupToolbar(false);
 
-        final Call<GenresList> getGenre = RestClient.getGenreEndPoint().getGenresList("afd84ed60249491a627b9fb517b38ae0");
-        String requestUrl = getGenre.request().url().toString();
-        Log.e(TAG,requestUrl);
-        RestClient.enqueue(this, getGenre, new RetrofitCallbackHelper<GenresList>() {
+        bindViews();
+        //callForGenre();
+        //callForNowShowing();
+        fetchGenre();
+        fetchUpcoming();
+        callForNowPlaying();
+        callForNowPlayingMovie();
+    }
 
+    private void fetchUpcoming() {
+        Call<MovieResult> call = RestClient.getUpcoming().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+        Log.e(TAG,call.request().url().toString());
+        call.enqueue(new Callback<MovieResult>() {
             @Override
-            protected void onSuccess(@NonNull GenresList data, int responseCode) {
-                Log.e(TAG,"Success");
-            }
+            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                if(response.isSuccessful() && response !=null){
+                    Log.e(TAG,response.body().toString());
+                    MovieResult movieResult = response.body();
+                    if(movieResult!=null) {
+                        Log.e(TAG, movieResult.toString());
+                        List<Result> listOfMovies = movieResult.getResults();
+                        //Log.e(TAG, listOfMovies.toString());
+                        //Result firstMovie = listOfMovies.get(0);
+//                        if (firstMovie != null) {
+//                            //Log.e(TAG,firstMovie.getTitle().toString());
+//                        } else {
+//                            Log.e(TAG, "firstMovie.getTitle().toString()");
+//                        }
 
-            @Override
-            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                Log.e(TAG,"Fail1");
-            }
+                    }
 
-            @Override
-            protected void onComplete() {
-                Log.e(TAG,"Complete");
-            }
-
-        });
-
-        final Call<List<GenresList>> getGenres = RestClient.getGenreEndPoint().getGenres("afd84ed60249491a627b9fb517b38ae0");
-        String url = getGenres.request().url().toString();
-        Log.e(TAG,url);
-        RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<List<GenresList>>() {
-
-
-
-            @Override
-            protected void onSuccess(@NonNull List<GenresList> data, int responseCode) {
-                Log.e(TAG,"Success");
-            }
-
-            @Override
-            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                Log.e(TAG,"Fail2");
-            }
-
-            @Override
-            protected void onComplete() {
-                Log.e(TAG,"Complete");
-            }
-
-
-        });
-
-        GenreEndPoint service = RestClient.getGenreEndPoint();
-        Call<List<GenresList>> call = service.getGenres("afd84ed60249491a627b9fb517b38ae0");
-        String checkUrl = call.request().url().toString();
-        Log.e(TAG,checkUrl);
-        call.enqueue(new Callback<List<GenresList>>() {
-            @Override
-            public void onResponse(Call<List<GenresList>> call, Response<List<GenresList>> response) {
-                if (response.isSuccessful()) {
-                    Log.e(TAG,"Success");
+                }else{
+                    Log.e(TAG,"response not success");
                 }
-                Log.e(TAG, String.valueOf(response.isSuccessful()));
-
             }
 
             @Override
-            public void onFailure(Call<List<GenresList>> call, Throwable t) {
-                Log.e(TAG,"Fail3");
+            public void onFailure(Call<MovieResult> call, Throwable t) {
+                Log.e(TAG,"Fail");
             }
         });
 
+    }
 
+    private void fetchGenre(){
+        Call<Genres> api = RestClient.getGenreEndPoint().getGenresList("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+        api.enqueue(new Callback<Genres>() {
+            @Override
+            public void onResponse(Call<Genres> call, Response<Genres> response) {
+                if (response.isSuccessful())
+                {
+                    Genres genresList = response.body();
+                    Log.e(TAG,genresList.toString());
+                    Log.e(TAG, String.valueOf(response.body()));
+                }else{
+                    Log.e(TAG,"ERROR");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Genres> call, Throwable t) {
+                Log.e(TAG,"onFailure");
+                Log.e(TAG, t.getLocalizedMessage());
+                Log.e(TAG,api.request().url().toString());
+            }
+        });
+    }
+
+    private void bindViews() {
+        contentMain = findViewById(R.id.contentMain);
+        contentLoading = findViewById(R.id.contentLoading);
+        contentError = findViewById(R.id.contentError);
+
+        viewLoading();
+    }
+
+    private void viewLoading(){
+        Log.e(TAG,"Loading");
+        contentLoading.setVisibility(vVisible);
+        contentMain.setVisibility(vGone);
+        contentError.setVisibility(vGone);
+    }
+    private void viewError(){
+        Log.e(TAG,"Error");
+        contentError.setVisibility(vVisible);
+        contentLoading.setVisibility(vGone);
+        contentMain.setVisibility(vGone);
+    }
+    private void viewMain(){
+        Log.e(TAG,"Main");
+        contentMain.setVisibility(vVisible);
+        contentLoading.setVisibility(vGone);
+        contentError.setVisibility(vGone);
+    }
+
+//    private void callForGenre(){
+//        Log.e(TAG,"I'm here to call Genre");
+//        final Call<GenresList> getGenre = RestClient.getGenreEndPoint().getGenresList("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+//        String requestUrl = getGenre.request().url().toString();
+//        Log.e(TAG,requestUrl);
+//        RestClient.enqueue(this, getGenre, new RetrofitCallbackHelper<GenresList>() {
+//
+//            @Override
+//            protected void onSuccess(@NonNull GenresList data, int responseCode) {
+//                //InMemoryStore.getInstance().setZawGyiDevice(MMTextUtils.isZawGyiDevice(this));
+//                InMemoryStore.getInstance().setGenresList(data);
+//
+//                Log.e(TAG,data.toString());
+//
+//                //callForNowShowing();
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+//                viewError();
+//            }
+//
+//            @Override
+//            protected void onComplete() {
+//
+//            }
+//
+//        });
+//    }
+
+    private void callForNowPlaying() {
+        Log.e(TAG,"I'm here to call NowShowing");
+        final Call<MovieResult> getNowPlaying = RestClient.getNowPlaying().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        String requestUrl = getNowPlaying.request().url().toString();
+        Log.e(TAG,requestUrl);
+        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
+
+            @Override
+            protected void onSuccess(@NonNull MovieResult data, int responseCode) {
+                //InMemoryStore.getInstance().setZawGyiDevice(MMTextUtils.isZawGyiDevice(this));
+                //InMemoryStore.getInstance().setGenresList(data);
+                Log.e("1",data.toString());
+                List<Result> listOfMovies = data.getResults();
+                //Log.e("2",listOfMovies.toString());
+                //Result firstMovie = listOfMovies.get(0);
+//                if(firstMovie != null){
+//                    Log.e(TAG,firstMovie.getTitle().toString());
+//                }
+//                else{
+//                    Log.e(TAG,"firstMovie.getTitle().toString()");
+//                }
+                //homeMovie.setNowPlaying(data);
+                //callForPopular();
+            }
+            @Override
+            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+                //viewError();
+                Log.e(TAG,"Error in UpComing");
+            }
+            @Override
+            protected void onComplete() {
+
+            }
+        });
+
+    }
+
+    private void callForNowPlayingMovie() {
+        Log.e(TAG,"I'm here to call NowShowing");
+        final Call<Movie> getNowPlaying = RestClient.getNowPlaying().getNowPlayingMovie("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        String requestUrl = getNowPlaying.request().url().toString();
+        Log.e(TAG,requestUrl);
+        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Movie>() {
+
+            @Override
+            protected void onSuccess(@NonNull Movie data, int responseCode) {
+                //InMemoryStore.getInstance().setZawGyiDevice(MMTextUtils.isZawGyiDevice(this));
+                //InMemoryStore.getInstance().setGenresList(data);
+                Log.e("*****************************",data.toString());
+                //List<Result> listOfMovies = data.getResults();
+                //Log.e("2",listOfMovies.toString());
+                //Result firstMovie = listOfMovies.get(0);
+//                if(firstMovie != null){
+//                    Log.e(TAG,firstMovie.getTitle().toString());
+//                }
+//                else{
+//                    Log.e(TAG,"firstMovie.getTitle().toString()");
+//                }
+                //homeMovie.setNowPlaying(data);
+                //callForPopular();
+            }
+            @Override
+            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+                //viewError();
+                Log.e(TAG,"Error in UpComing");
+            }
+            @Override
+            protected void onComplete() {
+
+            }
+        });
+
+    }
+
+//    private void callForPopular() {
+//        Log.e(TAG,"I'm here to call Popular");
+//        final Call<Movie> getPoular = RestClient.getNowPlaying().getPopular("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+//        String requestUrl = getPoular.request().url().toString();
+//        Log.e(TAG,requestUrl);
+//        RestClient.enqueue(this, getPoular, new RetrofitCallbackHelper<Movie>() {
+//            @Override
+//            protected void onSuccess(@NonNull Movie data, int responseCode) {
+//                //InMemoryStore.getInstance().setZawGyiDevice(MMTextUtils.isZawGyiDevice(this));
+//                //InMemoryStore.getInstance().setGenresList(data);
+//                homeMovie.setPopularMovie(data);
+//                //callForUpcoming();
+//            }
+//            @Override
+//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+//                //viewError();
+//                Log.e(TAG,"Error in UpComing");
+//            }
+//            @Override
+//            protected void onComplete() {
+//            }
+//        });
+//    }
+
+//    private void callForUpcoming() {
+//        Log.e(TAG,"I'm here to call Upcoming");
+//        final Call<Movie> getUpcoming = RestClient.getNowPlaying().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+//        String requestUrl = getUpcoming.request().url().toString();
+//        Log.e(TAG,requestUrl);
+//        RestClient.enqueue(this, getUpcoming, new RetrofitCallbackHelper<Movie>() {
+//            @Override
+//            protected void onSuccess(@NonNull Movie data, int responseCode) {
+//                //InMemoryStore.getInstance().setZawGyiDevice(MMTextUtils.isZawGyiDevice(this));
+//                //InMemoryStore.getInstance().setGenresList(data);
+//                homeMovie.setUpcomingMovie(data);
+//                //finalStepForFetchingMovie();
+//            }
+//            @Override
+//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+//                //viewError();
+//                Log.e(TAG,"Error in UpComing");
+//            }
+//            @Override
+//            protected void onComplete() {
+//            }
+//        });
+//    }
+
+    private void finalStepForFetchingMovie() {
+        Log.e(TAG,"******************************************************************");
+        Log.e(TAG,homeMovie.getNowPlaying().toString());
+        Log.e(TAG,homeMovie.getPopularMovie().toString());
+        Log.e(TAG,homeMovie.getUpcomingMovie().toString());
     }
 
     @Override

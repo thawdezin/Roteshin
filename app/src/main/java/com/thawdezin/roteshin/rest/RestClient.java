@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.thawdezin.roteshin.rest.endpoints.GenreEndPoint;
+import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
 
 import retrofit2.Call;
@@ -19,11 +20,15 @@ public class RestClient {
     private static Retrofit getRetrofit() {
         if (sRetrofit == null) {
 
-            String BASE_URL = "https://api.themoviedb.org/3/";
+            String BASE_URL = "https://api.themoviedb.org/";
             sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+//            sRetrofit = new retrofit2.Retrofit.Builder()
+//                    .baseUrl(BASE_URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
 
         }
         return sRetrofit;
@@ -56,5 +61,22 @@ public class RestClient {
     public static GenreEndPoint getGenreEndPoint() {
         return getRetrofit().create(GenreEndPoint.class);
     }
+
+    public static MovieEndPoint getNowPlaying(){
+        return getRetrofit().create(MovieEndPoint.class);
+    }
+
+    public static MovieEndPoint getNowPlayingMovie(){
+        return getRetrofit().create(MovieEndPoint.class);
+    }
+
+    public static MovieEndPoint getPopular(){
+        return getRetrofit().create(MovieEndPoint.class);
+    }
+
+    public static MovieEndPoint getUpcoming(){
+        return getRetrofit().create(MovieEndPoint.class);
+    }
+
 
 }
