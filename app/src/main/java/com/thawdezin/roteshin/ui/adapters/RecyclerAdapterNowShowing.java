@@ -44,12 +44,16 @@ public class RecyclerAdapterNowShowing extends RecyclerView.Adapter<RecyclerAdap
     public void onBindViewHolder(@NonNull RecyclerAdapterNowShowing.NowShowingViewHolder holder, int position) {
         Result result = movieList.get(position);
         holder.tvTitleNowShow.setText(result.getTitle());
-        Log.e(">>>>",result.getTitle());
     }
 
     @Override
     public int getItemCount() {
         return movieList.size();
+    }
+
+    public void setMovieList(List<Result> movieList) {
+        this.movieList = movieList;
+        notifyDataSetChanged();
     }
 
     public class NowShowingViewHolder extends RecyclerView.ViewHolder {

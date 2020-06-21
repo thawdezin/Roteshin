@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity {
     public static int PAGE = 1;
 
     List<Result> movieList = new ArrayList<Result>();
+    List<FilmItem> filmList = new ArrayList<FilmItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +76,12 @@ public class MainActivity extends BaseActivity {
 
         bindViews();
         recyclerViewPrepare();
+        callForNowPlaying();
         //callForGenre();
         //callForNowShowing();
-        //fetchGenre();
-        //fetchUpcoming();
-        callForNowPlaying();
-        //callTest();
+        fetchGenre();
+        fetchUpcoming();
+        callTest();
     }
 
     private void recyclerViewPrepare() {
@@ -101,8 +102,9 @@ public class MainActivity extends BaseActivity {
         movieList.add(res2);
 
         recyclerAdapterNowShowing = new RecyclerAdapterNowShowing(getApplicationContext(),movieList);
+        recyclerAdapterPopular = new RecyclerAdapterPopular(getApplicationContext(),filmList);
         recyclerViewNowShowing.setAdapter(recyclerAdapterNowShowing);
-        recyclerViewPopular.setAdapter(recyclerAdapterNowShowing);
+        recyclerViewPopular.setAdapter(recyclerAdapterPopular);
         recyclerViewUpcoming.setAdapter(recyclerAdapterNowShowing);
 
     }
@@ -146,32 +148,31 @@ public class MainActivity extends BaseActivity {
     }
 
 
-//    private void callTest() {
-//        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
-//        String requestUrl = getNowPlaying.request().url().toString();
-//        Log.e(TAG,requestUrl);
-//        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
-//
-//            @Override
-//            protected void onSuccess(@NonNull Film data, int responseCode) {
-//                Log.e("FilmResult",data.toString());
-//                List<FilmItem> filmItem = data.getFilmItem();
-//                Log.e("filmItem.toString()",filmItem.toString());
-//                for(FilmItem item: filmItem){
-//                    Log.e("list",item.getTitle().toString());
-//                }
-//
-//            }
-//            @Override
-//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-//                t.printStackTrace();
-//            }
-//            @Override
-//            protected void onComplete() {
-//
-//            }
-//        });
-//    }
+    private void callTest() {
+        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        String requestUrl = getNowPlaying.request().url().toString();
+        Log.e(TAG,requestUrl);
+        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
+
+            @Override
+            protected void onSuccess(@NonNull Film data, int responseCode) {
+                Log.e("FilmResult",data.toString());
+                List<FilmItem> filmItem = data.getFilmItem();
+                filmList = filmItem;
+                recyclerAdapterPopular.setMovieList(filmList);
+                Log.e("filmItem.toString()",filmItem.toString());
+
+            }
+            @Override
+            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+                t.printStackTrace();
+            }
+            @Override
+            protected void onComplete() {
+
+            }
+        });
+    }
 
 
     private void fetchUpcoming() {
@@ -263,10 +264,6 @@ public class MainActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
-//                List<Result> results = data.getResults();
-//                for(Result result: results){
-//                    //Log.e("results",result.getTitle());
-//                }
                 Log.e("MovieResult",data.toString());
 
             }
