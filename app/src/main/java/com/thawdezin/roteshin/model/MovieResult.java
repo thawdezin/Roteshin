@@ -3,11 +3,12 @@ package com.thawdezin.roteshin.model;
 /**
  * Created by Thaw De Zin on June 19, 2020
  */
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieResult {
+public class MovieResult  implements Serializable {
 
     @SerializedName("results")
     @Expose

@@ -5,13 +5,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
 import com.thawdezin.roteshin.model.Film;
+import com.thawdezin.roteshin.model.FilmItem;
 import com.thawdezin.roteshin.model.Genres;
 
 import com.thawdezin.roteshin.model.Movie;
@@ -20,7 +26,12 @@ import com.thawdezin.roteshin.model.Result;
 import com.thawdezin.roteshin.rest.RestClient;
 import com.thawdezin.roteshin.rest.RetrofitCallbackHelper;
 import com.thawdezin.roteshin.ui.activities.base.BaseActivity;
+import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterNowShowing;
+import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterPopular;
+import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterUpcoming;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +46,18 @@ public class MainActivity extends BaseActivity {
     ConstraintLayout contentLoading;
     ConstraintLayout contentError;
 
+    RecyclerView recyclerViewNowShowing;
+    RecyclerView recyclerViewPopular;
+    RecyclerView recyclerViewUpcoming;
+
+    RecyclerAdapterNowShowing recyclerAdapterNowShowing;
+    RecyclerAdapterPopular recyclerAdapterPopular;
+    RecyclerAdapterUpcoming recyclerAdapterUpcoming;
+
+    MaterialTextView tvGenres;
+    MaterialTextView tvItemTitle;
+    ImageView ivItem;
+
     int vGone = View.GONE;
     int vVisible = View.VISIBLE;
 
@@ -43,41 +66,112 @@ public class MainActivity extends BaseActivity {
     public static String LANGUAGE = "en-US";
     public static int PAGE = 1;
 
+    List<Result> movieList = new ArrayList<Result>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupToolbar(false);
 
         bindViews();
+        recyclerViewPrepare();
         //callForGenre();
         //callForNowShowing();
         //fetchGenre();
         //fetchUpcoming();
         callForNowPlaying();
-        callTest();
+        //callTest();
     }
 
-    private void callTest() {
-        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
-        String requestUrl = getNowPlaying.request().url().toString();
-        Log.e(TAG,requestUrl);
-        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
+    private void recyclerViewPrepare() {
+        LinearLayout linearLayout = new LinearLayout(this);
+        recyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewNowShowing.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-            @Override
-            protected void onSuccess(@NonNull Film data, int responseCode) {
-                Log.e("FilmResult",data.toString());
+        Result res1 = new Result();
+        res1.setTitle("Thaw De Zin");
+        Result res2 = new Result();
+        res2.setTitle("Thaw Thaw");
+        movieList.add(res1);
+        movieList.add(res2);
+        movieList.add(res1);
+        movieList.add(res2);
+        movieList.add(res1);
+        movieList.add(res2);
 
-            }
-            @Override
-            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                Log.e(TAG,t.getLocalizedMessage());
-            }
-            @Override
-            protected void onComplete() {
+        recyclerAdapterNowShowing = new RecyclerAdapterNowShowing(getApplicationContext(),movieList);
+        recyclerViewNowShowing.setAdapter(recyclerAdapterNowShowing);
+        recyclerViewPopular.setAdapter(recyclerAdapterNowShowing);
+        recyclerViewUpcoming.setAdapter(recyclerAdapterNowShowing);
 
-            }
-        });
     }
+
+    private void bindViews() {
+        contentMain = findViewById(R.id.contentMain);
+        contentLoading = findViewById(R.id.contentLoading);
+        contentError = findViewById(R.id.contentError);
+
+        recyclerViewNowShowing = findViewById(R.id.rvNowShowing);
+        recyclerViewPopular = findViewById(R.id.rvPopularMovie);
+        recyclerViewUpcoming = findViewById(R.id.rvUpcomingMovie);
+
+        tvGenres = findViewById(R.id.tvMoiveItemGenre);
+        tvItemTitle = findViewById(R.id.tvItemTitle);
+        ivItem = findViewById(R.id.ivMovieItem);
+
+
+        viewLoading();
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.search_movie) {
+            //
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+//    private void callTest() {
+//        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+//        String requestUrl = getNowPlaying.request().url().toString();
+//        Log.e(TAG,requestUrl);
+//        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
+//
+//            @Override
+//            protected void onSuccess(@NonNull Film data, int responseCode) {
+//                Log.e("FilmResult",data.toString());
+//                List<FilmItem> filmItem = data.getFilmItem();
+//                Log.e("filmItem.toString()",filmItem.toString());
+//                for(FilmItem item: filmItem){
+//                    Log.e("list",item.getTitle().toString());
+//                }
+//
+//            }
+//            @Override
+//            protected void onFailure(Throwable t, int responseCode, int resultCode) {
+//                t.printStackTrace();
+//            }
+//            @Override
+//            protected void onComplete() {
+//
+//            }
+//        });
+//    }
 
 
     private void fetchUpcoming() {
@@ -86,7 +180,7 @@ public class MainActivity extends BaseActivity {
         call.enqueue(new Callback<MovieResult>() {
             @Override
             public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-                if(response.isSuccessful() && response !=null){
+                if(response.isSuccessful() && response.body() !=null){
                     Log.e(TAG,response.body().toString());
                     MovieResult movieResult = response.body();
                     if(movieResult!=null) {
@@ -133,34 +227,28 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onFailure(Call<Genres> call, Throwable t) {
                 Log.e(TAG,"onFailure");
-                Log.e(TAG, t.getLocalizedMessage());
+                t.printStackTrace();
                 Log.e(TAG,api.request().url().toString());
             }
         });
     }
 
-    private void bindViews() {
-        contentMain = findViewById(R.id.contentMain);
-        contentLoading = findViewById(R.id.contentLoading);
-        contentError = findViewById(R.id.contentError);
 
-        viewLoading();
-    }
 
     private void viewLoading(){
-        Log.e(TAG,"Loading");
+        Log.e(TAG,"Loading View");
         contentLoading.setVisibility(vVisible);
         contentMain.setVisibility(vGone);
         contentError.setVisibility(vGone);
     }
     private void viewError(){
-        Log.e(TAG,"Error");
+        Log.e(TAG,"Error View");
         contentError.setVisibility(vVisible);
         contentLoading.setVisibility(vGone);
         contentMain.setVisibility(vGone);
     }
     private void viewMain(){
-        Log.e(TAG,"Main");
+        Log.e(TAG,"Main View");
         contentMain.setVisibility(vVisible);
         contentLoading.setVisibility(vGone);
         contentError.setVisibility(vGone);
@@ -175,16 +263,20 @@ public class MainActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
+//                List<Result> results = data.getResults();
+//                for(Result result: results){
+//                    //Log.e("results",result.getTitle());
+//                }
                 Log.e("MovieResult",data.toString());
 
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                Log.e(TAG,t.getLocalizedMessage());
+                t.printStackTrace();
             }
             @Override
             protected void onComplete() {
-
+                viewMain();
             }
         });
 
@@ -199,26 +291,6 @@ public class MainActivity extends BaseActivity {
         //Log.e(TAG,homeMovie.getUpcomingMovie().toString());
     }
 
-    @Override
-    protected int getLayoutResource() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.search_movie) {
-            //
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 

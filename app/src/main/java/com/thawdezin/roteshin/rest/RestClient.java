@@ -21,7 +21,7 @@ public class RestClient {
     private static Retrofit getRetrofit() {
         if (sRetrofit == null) {
 
-            String BASE_URL = "https://api.themoviedb.org/";
+            String BASE_URL = "https://api.themoviedb.org/3/";
             sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

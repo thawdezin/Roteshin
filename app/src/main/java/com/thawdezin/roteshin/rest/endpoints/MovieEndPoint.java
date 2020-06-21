@@ -1,6 +1,5 @@
 package com.thawdezin.roteshin.rest.endpoints;
 
-import com.thawdezin.roteshin.model.Movie;
 import com.thawdezin.roteshin.model.MovieResult;
 
 import retrofit2.Call;

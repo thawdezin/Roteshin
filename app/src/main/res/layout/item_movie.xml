@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/materialCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
         >
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivMovie"
+            android:id="@+id/ivMovieItem"
             style="@style/App.ShapeAppearance.Medium"
             android:layout_width="@dimen/item_movie_width"
             android:layout_height="@dimen/item_movie_height"
@@ -23,10 +24,10 @@
             app:srcCompat="@drawable/place_holder"
             />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView"
+        android:id="@+id/tvItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,7 +35,7 @@
         android:layout_marginEnd="8dp"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:textAppearance="?textAppearanceHeadline6"
+        android:textAppearance="?textAppearanceHeadline5"
         tools:text="Movie Name" />
 
     <com.google.android.material.textview.MaterialTextView
