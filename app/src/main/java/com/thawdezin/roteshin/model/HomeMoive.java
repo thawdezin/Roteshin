@@ -8,11 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class HomeMoive {
 
-    @SerializedName("id")
-    @Expose
-    private Movie now;
-
-    @SerializedName("id")
-    @Expose
-    private Movie up;
+//    private Movie nowPlaying;
+//    private Movie upcoming;
+//    private Movie popular;
 }

@@ -20,7 +20,6 @@ import com.thawdezin.roteshin.model.Film;
 import com.thawdezin.roteshin.model.FilmItem;
 import com.thawdezin.roteshin.model.Genres;
 
-import com.thawdezin.roteshin.model.Movie;
 import com.thawdezin.roteshin.model.MovieResult;
 import com.thawdezin.roteshin.model.Result;
 import com.thawdezin.roteshin.rest.RestClient;
@@ -30,7 +29,6 @@ import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterNowShowing;
 import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterPopular;
 import com.thawdezin.roteshin.ui.adapters.RecyclerAdapterUpcoming;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -76,11 +74,11 @@ public class MainActivity extends BaseActivity {
 
         bindViews();
         recyclerViewPrepare();
-        callForNowPlaying();
+        //callForNowPlaying();
         //callForGenre();
         //callForNowShowing();
-        fetchGenre();
-        fetchUpcoming();
+        //fetchGenre();
+        //fetchUpcoming();
         callTest();
     }
 
@@ -149,7 +147,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void callTest() {
-        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        final Call<Film> getNowPlaying = RestClient.getFilmEndPoint().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
@@ -176,7 +174,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void fetchUpcoming() {
-        Call<MovieResult> call = RestClient.getUpcoming().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+        Call<MovieResult> call = RestClient.getMovieEndPoint().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
         Log.e(TAG,call.request().url().toString());
         call.enqueue(new Callback<MovieResult>() {
             @Override
@@ -257,7 +255,7 @@ public class MainActivity extends BaseActivity {
 
     private void callForNowPlaying() {
         Log.e(TAG,"I'm here to call NowShowing MovieResult");
-        final Call<MovieResult> getNowPlaying = RestClient.getNowPlaying().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {

@@ -1,79 +1,74 @@
 package com.thawdezin.roteshin.model;
 
-/**
- * Created by Thaw De Zin on June 19, 2020
- */
-import java.io.Serializable;
 import java.util.List;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieResult {
+public class MovieResult{
 
-    @SerializedName("results")
-    @Expose
-    private List<Result> results = null;
-    @SerializedName("page")
-    @Expose
-    private Integer page;
-    @SerializedName("total_results")
-    @Expose
-    private Integer totalResults;
-    @SerializedName("dates")
-    @Expose
-    private Dates dates;
-    @SerializedName("total_pages")
-    @Expose
-    private Integer totalPages;
+	@SerializedName("dates")
+	private Dates dates;
 
-    public List<Result> getResults() {
-        return results;
-    }
+	@SerializedName("page")
+	private int page;
 
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
+	@SerializedName("total_pages")
+	private int totalPages;
 
-    public Integer getPage() {
-        return page;
-    }
+	@SerializedName("results")
+	private List<Result> results;
 
-    public void setPage(Integer page) {
-        this.page = page;
-    }
+	@SerializedName("total_results")
+	private int totalResults;
 
-    public Integer getTotalResults() {
-        return totalResults;
-    }
+	public void setDates(Dates dates){
+		this.dates = dates;
+	}
 
-    public void setTotalResults(Integer totalResults) {
-        this.totalResults = totalResults;
-    }
+	public Dates getDates(){
+		return dates;
+	}
 
-    public Dates getDates() {
-        return dates;
-    }
+	public void setPage(int page){
+		this.page = page;
+	}
 
-    public void setDates(Dates dates) {
-        this.dates = dates;
-    }
+	public int getPage(){
+		return page;
+	}
 
-    public Integer getTotalPages() {
-        return totalPages;
-    }
+	public void setTotalPages(int totalPages){
+		this.totalPages = totalPages;
+	}
 
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
+	public int getTotalPages(){
+		return totalPages;
+	}
 
-    @Override
-    public String toString() {
-        return "MovieResult{" +
-                "results=" + results +
-                ", page=" + page +
-                ", totalResults=" + totalResults +
-                ", dates=" + dates +
-                ", totalPages=" + totalPages +
-                '}';
-    }
+	public void setResults(List<Result> results){
+		this.results = results;
+	}
+
+	public List<Result> getResults(){
+		return results;
+	}
+
+	public void setTotalResults(int totalResults){
+		this.totalResults = totalResults;
+	}
+
+	public int getTotalResults(){
+		return totalResults;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"MovieResult{" + 
+			"dates = '" + dates + '\'' + 
+			",page = '" + page + '\'' + 
+			",total_pages = '" + totalPages + '\'' + 
+			",results = '" + results + '\'' + 
+			",total_results = '" + totalResults + '\'' + 
+			"}";
+		}
 }

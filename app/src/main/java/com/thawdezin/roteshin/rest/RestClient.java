@@ -21,7 +21,7 @@ public class RestClient {
     private static Retrofit getRetrofit() {
         if (sRetrofit == null) {
 
-            String BASE_URL = "https://api.themoviedb.org/3/";
+            String BASE_URL = "https://api.themoviedb.org";
             sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -63,19 +63,11 @@ public class RestClient {
         return getRetrofit().create(GenreEndPoint.class);
     }
 
-    public static MovieEndPoint getNowPlaying(){
+    public static MovieEndPoint getMovieEndPoint(){
         return getRetrofit().create(MovieEndPoint.class);
     }
 
-    public static MovieEndPoint getPopular(){
-        return getRetrofit().create(MovieEndPoint.class);
-    }
-
-    public static MovieEndPoint getUpcoming(){
-        return getRetrofit().create(MovieEndPoint.class);
-    }
-
-    public static FilmEndPoint getNowPlayingFilm(){
+    public static FilmEndPoint getFilmEndPoint(){
         return getRetrofit().create(FilmEndPoint.class);
     }
 }

@@ -1,41 +1,37 @@
 package com.thawdezin.roteshin.model;
 
-/**
- * Created by Thaw De Zin on June 19, 2020
- */
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Dates {
+public class Dates{
 
-    @SerializedName("maximum")
-    @Expose
-    private String maximum;
-    @SerializedName("minimum")
-    @Expose
-    private String minimum;
+	@SerializedName("maximum")
+	private String maximum;
 
-    public String getMaximum() {
-        return maximum;
-    }
+	@SerializedName("minimum")
+	private String minimum;
 
-    public void setMaximum(String maximum) {
-        this.maximum = maximum;
-    }
+	public void setMaximum(String maximum){
+		this.maximum = maximum;
+	}
 
-    public String getMinimum() {
-        return minimum;
-    }
+	public String getMaximum(){
+		return maximum;
+	}
 
-    public void setMinimum(String minimum) {
-        this.minimum = minimum;
-    }
+	public void setMinimum(String minimum){
+		this.minimum = minimum;
+	}
 
-    @Override
-    public String toString() {
-        return "Dates{" +
-                "maximum='" + maximum + '\'' +
-                ", minimum='" + minimum + '\'' +
-                '}';
-    }
+	public String getMinimum(){
+		return minimum;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Dates{" + 
+			"maximum = '" + maximum + '\'' + 
+			",minimum = '" + minimum + '\'' + 
+			"}";
+		}
 }

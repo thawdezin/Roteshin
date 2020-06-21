@@ -1,8 +1,6 @@
 package com.thawdezin.roteshin.ui.adapters;
 
 import android.content.Context;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
-import com.thawdezin.roteshin.model.MovieResult;
 import com.thawdezin.roteshin.model.Result;
 
 import java.util.List;
