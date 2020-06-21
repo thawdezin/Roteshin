@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.thawdezin.roteshin.rest.endpoints.FilmEndPoint;
 import com.thawdezin.roteshin.rest.endpoints.GenreEndPoint;
 import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
@@ -66,10 +67,6 @@ public class RestClient {
         return getRetrofit().create(MovieEndPoint.class);
     }
 
-    public static MovieEndPoint getNowPlayingMovie(){
-        return getRetrofit().create(MovieEndPoint.class);
-    }
-
     public static MovieEndPoint getPopular(){
         return getRetrofit().create(MovieEndPoint.class);
     }
@@ -78,5 +75,7 @@ public class RestClient {
         return getRetrofit().create(MovieEndPoint.class);
     }
 
-
+    public static FilmEndPoint getNowPlayingFilm(){
+        return getRetrofit().create(FilmEndPoint.class);
+    }
 }

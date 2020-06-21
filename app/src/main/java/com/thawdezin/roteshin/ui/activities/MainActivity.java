@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
 import com.thawdezin.roteshin.R;
+import com.thawdezin.roteshin.model.Film;
 import com.thawdezin.roteshin.model.Genres;
 
 import com.thawdezin.roteshin.model.Movie;
@@ -53,29 +54,31 @@ public class MainActivity extends BaseActivity {
         //fetchGenre();
         //fetchUpcoming();
         callForNowPlaying();
-        callForNowPlayingMovie();
-        customCall();
+        callTest();
     }
 
-    private void customCall() {
-        Call<Movie> call = RestClient.getNowPlaying().getNowPlayingMovie("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
-        call.enqueue(new Callback<Movie>() {
-            @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                if(response.isSuccessful()){
-                    Log.e("CustomCall",response.body().toString());
-                }
-                else{
-                    Log.e("CustomCall","response not success ful");
-                }
-            }
+    private void callTest() {
+        final Call<Film> getNowPlaying = RestClient.getNowPlayingFilm().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        String requestUrl = getNowPlaying.request().url().toString();
+        Log.e(TAG,requestUrl);
+        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            protected void onSuccess(@NonNull Film data, int responseCode) {
+                Log.e("FilmResult",data.toString());
+
+            }
+            @Override
+            protected void onFailure(Throwable t, int responseCode, int resultCode) {
                 Log.e(TAG,t.getLocalizedMessage());
+            }
+            @Override
+            protected void onComplete() {
+
             }
         });
     }
+
 
     private void fetchUpcoming() {
         Call<MovieResult> call = RestClient.getUpcoming().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
@@ -165,7 +168,7 @@ public class MainActivity extends BaseActivity {
 
     private void callForNowPlaying() {
         Log.e(TAG,"I'm here to call NowShowing MovieResult");
-        final Call<MovieResult> getNowPlaying = RestClient.getNowPlaying().getNowPlayingMovieResult("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        final Call<MovieResult> getNowPlaying = RestClient.getNowPlaying().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
@@ -187,31 +190,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private void callForNowPlayingMovie() {
-        Log.e(TAG,"I'm here to call NowShowingMovie");
-        final Call<Movie> getNowPlaying = RestClient.getNowPlaying().getNowPlayingMovie("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
-        String requestUrl = getNowPlaying.request().url().toString();
-        Log.e(TAG,requestUrl);
-        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Movie>() {
 
-            @Override
-            protected void onSuccess(@NonNull Movie data, int responseCode) {
-
-                Log.e(">>>>>>",data.toString());
-
-            }
-            @Override
-            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                //viewError();
-                Log.e(TAG,t.getLocalizedMessage());
-            }
-            @Override
-            protected void onComplete() {
-
-            }
-        });
-
-    }
 
     private void finalStepForFetchingMovie() {
         Log.e(TAG,"******************************************************************");
@@ -244,3 +223,23 @@ public class MainActivity extends BaseActivity {
 
 
 }
+
+//    private void customCall() {
+//        Call<MovieResult> call = RestClient.getNowPlaying().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+//        call.enqueue(new Callback<MovieResult>() {
+//            @Override
+//            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+//                if(response.isSuccessful()){
+//                    Log.e("CustomCall",response.body().toString());
+//                }
+//                else{
+//                    Log.e("CustomCall","response not success ful");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MovieResult> call, Throwable t) {
+//                Log.e(TAG,t.getLocalizedMessage());
+//            }
+//        });
+//    }

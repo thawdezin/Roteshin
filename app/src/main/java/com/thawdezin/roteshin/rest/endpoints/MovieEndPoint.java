@@ -13,14 +13,7 @@ import retrofit2.http.Query;
 public interface MovieEndPoint {
 
     @GET("/3/movie/now_playing")
-    Call<MovieResult> getNowPlayingMovieResult(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
-    );
-
-    @GET("/3/movie/now_playing")
-    Call<Movie> getNowPlayingMovie(
+    Call<MovieResult> getNowPlaying(
             @Query("api_key") String api_key,
             @Query("language") String language,
             @Query("page") int pageNo
