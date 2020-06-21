@@ -54,6 +54,27 @@ public class MainActivity extends BaseActivity {
         //fetchUpcoming();
         callForNowPlaying();
         callForNowPlayingMovie();
+        customCall();
+    }
+
+    private void customCall() {
+        Call<Movie> call = RestClient.getNowPlaying().getNowPlayingMovie("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                if(response.isSuccessful()){
+                    Log.e("CustomCall",response.body().toString());
+                }
+                else{
+                    Log.e("CustomCall","response not success ful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+                Log.e(TAG,t.getLocalizedMessage());
+            }
+        });
     }
 
     private void fetchUpcoming() {
@@ -143,7 +164,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void callForNowPlaying() {
-        Log.e(TAG,"I'm here to call NowShowing");
+        Log.e(TAG,"I'm here to call NowShowing MovieResult");
         final Call<MovieResult> getNowPlaying = RestClient.getNowPlaying().getNowPlayingMovieResult("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
@@ -167,7 +188,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void callForNowPlayingMovie() {
-        Log.e(TAG,"I'm here to call NowShowing");
+        Log.e(TAG,"I'm here to call NowShowingMovie");
         final Call<Movie> getNowPlaying = RestClient.getNowPlaying().getNowPlayingMovie("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
@@ -176,7 +197,7 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull Movie data, int responseCode) {
 
-                Log.e("CustomMovie",data.toString());
+                Log.e(">>>>>>",data.toString());
 
             }
             @Override

@@ -3,7 +3,7 @@ package com.thawdezin.roteshin.model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ResultsItem{
+public class MovieItem {
 
 	@SerializedName("overview")
 	private String overview;
@@ -32,8 +32,8 @@ public class ResultsItem{
 	@SerializedName("release_date")
 	private String releaseDate;
 
-	@SerializedName("popularity")
-	private double popularity;
+//	@SerializedName("popularity")
+//	private double popularity;
 
 	@SerializedName("vote_average")
 	private double voteAverage;
@@ -119,13 +119,13 @@ public class ResultsItem{
 		return releaseDate;
 	}
 
-	public void setPopularity(double popularity){
-		this.popularity = popularity;
-	}
-
-	public double getPopularity(){
-		return popularity;
-	}
+//	public void setPopularity(double popularity){
+//		this.popularity = popularity;
+//	}
+//
+//	public double getPopularity(){
+//		return popularity;
+//	}
 
 	public void setVoteAverage(double voteAverage){
 		this.voteAverage = voteAverage;
@@ -162,7 +162,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
+			"MovieItem{" +
 			"overview = '" + overview + '\'' + 
 			",original_language = '" + originalLanguage + '\'' + 
 			",original_title = '" + originalTitle + '\'' + 
@@ -172,7 +172,7 @@ public class ResultsItem{
 			",poster_path = '" + posterPath + '\'' + 
 			",backdrop_path = '" + backdropPath + '\'' + 
 			",release_date = '" + releaseDate + '\'' + 
-			",popularity = '" + popularity + '\'' + 
+//			",popularity = '" + popularity + '\'' +
 			",vote_average = '" + voteAverage + '\'' + 
 			",id = '" + id + '\'' + 
 			",adult = '" + adult + '\'' + 

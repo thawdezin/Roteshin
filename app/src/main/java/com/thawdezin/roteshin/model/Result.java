@@ -9,56 +9,69 @@ import com.google.gson.annotations.SerializedName;
 
 public class Result {
 
-    @SerializedName("popularity")
-    @Expose
-    private Double popularity;
+//    @SerializedName("popularity")
+//    @Expose
+//    private Double popularity;
+
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+
     @SerializedName("video")
     @Expose
     private Boolean video;
+
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds = null;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
     @SerializedName("overview")
     @Expose
     private String overview;
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
 
-    public Double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
+//    public Double getPopularity() {
+//        return popularity;
+//    }
+//
+//    public void setPopularity(Double popularity) {
+//        this.popularity = popularity;
+//    }
 
     public Integer getVoteCount() {
         return voteCount;
@@ -167,7 +180,7 @@ public class Result {
     @Override
     public String toString() {
         return "Result{" +
-                "popularity=" + popularity +
+//                "popularity=" + popularity +
                 ", voteCount=" + voteCount +
                 ", video=" + video +
                 ", posterPath='" + posterPath + '\'' +

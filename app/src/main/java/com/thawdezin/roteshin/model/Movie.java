@@ -3,74 +3,86 @@ package com.thawdezin.roteshin.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Thaw De Zin on June 18, 2020
  */
+//    public String getPosterThumbnailUrl(){
+//        return "http://image.tmdb.org/t/p/w500"+getPosterPath();
+//    }
+//}
+
 public class Movie {
 
-
-    @SerializedName("title")
+    @SerializedName("results")
     @Expose
-    private String movieTitle;
+    private List<MovieItem> results = null;
 
-
-    @SerializedName("id")
+    @SerializedName("page")
     @Expose
-    private int id;
+    private Integer page;
 
-
-    @SerializedName("poster_path")
+    @SerializedName("total_results")
     @Expose
-    private String posterPath;
+    private Integer totalResults;
 
+//    @SerializedName("dates")
+//    @Expose
+//    private Dates dates;
 
-    @SerializedName("genre_ids")
+    @SerializedName("total_pages")
     @Expose
-    private GenresList genresList;
+    private Integer totalPages;
 
-    public String getMovieTitle() {
-        return movieTitle;
+    public List<MovieItem> getResults() {
+        return results;
     }
 
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
+    public void setResults(List<MovieItem> results) {
+        this.results = results;
     }
 
-    public int getId() {
-        return id;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public GenresList getGenresList() {
-        return genresList;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public void setGenresList(GenresList genresList) {
-        this.genresList = genresList;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+//    public Dates getDates() {
+//        return dates;
+//    }
+//
+//    public void setDates(Dates dates) {
+//        this.dates = dates;
+//    }
+
+    public Integer getTotalPages() {
+        return totalPages;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "movieTitle='" + movieTitle + '\'' +
-                ", id=" + id +
-                ", posterPath='" + posterPath + '\'' +
-                ", genresList=" + genresList +
+        return "MovieResult{" +
+                "results=" + results +
+                ", page=" + page +
+                ", totalResults=" + totalResults +
+//                ", dates=" + dates +
+                ", totalPages=" + totalPages +
                 '}';
-    }
-
-    public String getPosterThumbnailUrl(){
-        return "http://image.tmdb.org/t/p/w500"+getPosterPath();
     }
 }
