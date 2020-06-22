@@ -189,11 +189,11 @@ public class MainActivity extends BaseActivity {
 
                 Log.e(TAG,data.toString()); //Result is null when minifyEnabled true
 
-//                List<Result> movieList = data.getResults();
-//
-//                for(Result result: movieList) {
-//                    Log.e("Titles ", result.getTitle());
-//                }
+                List<Result> movieList = data.getResults();
+
+                for(Result result: movieList) {
+                    Log.e("Titles ", result.getTitle());
+                }
 
             }
             @Override
