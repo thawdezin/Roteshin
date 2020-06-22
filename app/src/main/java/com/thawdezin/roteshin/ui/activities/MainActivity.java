@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity {
 
     //HomeMovie homeMovie;
 
+    public static String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
     public static String LANGUAGE = "en-US";
     public static int PAGE = 1;
 
@@ -74,12 +75,12 @@ public class MainActivity extends BaseActivity {
 
         bindViews();
         recyclerViewPrepare();
-        //callForNowPlaying();
-        //callForGenre();
-        //callForNowShowing();
+
         //fetchGenre();
+        fetchNowPlaying();
+        //fetchPopular();
         //fetchUpcoming();
-        callTest();
+
     }
 
     private void recyclerViewPrepare() {
@@ -87,17 +88,6 @@ public class MainActivity extends BaseActivity {
         recyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewNowShowing.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        Result res1 = new Result();
-        res1.setTitle("Thaw De Zin");
-        Result res2 = new Result();
-        res2.setTitle("Thaw Thaw");
-        movieList.add(res1);
-        movieList.add(res2);
-        movieList.add(res1);
-        movieList.add(res2);
-        movieList.add(res1);
-        movieList.add(res2);
 
         recyclerAdapterNowShowing = new RecyclerAdapterNowShowing(getApplicationContext(),movieList);
         recyclerAdapterPopular = new RecyclerAdapterPopular(getApplicationContext(),filmList);
@@ -119,7 +109,6 @@ public class MainActivity extends BaseActivity {
         tvGenres = findViewById(R.id.tvMoiveItemGenre);
         tvItemTitle = findViewById(R.id.tvItemTitle);
         ivItem = findViewById(R.id.ivMovieItem);
-
 
         viewLoading();
     }
@@ -145,71 +134,8 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void callTest() {
-        final Call<Film> getNowPlaying = RestClient.getFilmEndPoint().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
-        String requestUrl = getNowPlaying.request().url().toString();
-        Log.e(TAG,requestUrl);
-        RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<Film>() {
-
-            @Override
-            protected void onSuccess(@NonNull Film data, int responseCode) {
-                Log.e("FilmResult",data.toString());
-                List<FilmItem> filmItem = data.getFilmItem();
-                filmList = filmItem;
-                recyclerAdapterPopular.setMovieList(filmList);
-                Log.e("filmItem.toString()",filmItem.toString());
-
-            }
-            @Override
-            protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                t.printStackTrace();
-            }
-            @Override
-            protected void onComplete() {
-
-            }
-        });
-    }
-
-
-    private void fetchUpcoming() {
-        Call<MovieResult> call = RestClient.getMovieEndPoint().getUpcoming("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
-        Log.e(TAG,call.request().url().toString());
-        call.enqueue(new Callback<MovieResult>() {
-            @Override
-            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-                if(response.isSuccessful() && response.body() !=null){
-                    Log.e(TAG,response.body().toString());
-                    MovieResult movieResult = response.body();
-                    if(movieResult!=null) {
-                        Log.e(TAG, movieResult.toString());
-                        List<Result> listOfMovies = movieResult.getResults();
-                        //Log.e(TAG, listOfMovies.toString());
-                        //Result firstMovie = listOfMovies.get(0);
-//                        if (firstMovie != null) {
-//                            //Log.e(TAG,firstMovie.getTitle().toString());
-//                        } else {
-//                            Log.e(TAG, "firstMovie.getTitle().toString()");
-//                        }
-
-                    }
-
-                }else{
-                    Log.e(TAG,"response not success");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieResult> call, Throwable t) {
-                Log.e(TAG,"Fail");
-            }
-        });
-
-    }
-
     private void fetchGenre(){
-        Call<Genres> api = RestClient.getGenreEndPoint().getGenresList("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
+        Call<Genres> api = RestClient.getGenreEndPoint().getGenresList(API_KEY,LANGUAGE,PAGE);
         api.enqueue(new Callback<Genres>() {
             @Override
             public void onResponse(Call<Genres> call, Response<Genres> response) {
@@ -232,8 +158,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-
-
     private void viewLoading(){
         Log.e(TAG,"Loading View");
         contentLoading.setVisibility(vVisible);
@@ -253,16 +177,23 @@ public class MainActivity extends BaseActivity {
         contentError.setVisibility(vGone);
     }
 
-    private void callForNowPlaying() {
+    private void fetchNowPlaying() {
         Log.e(TAG,"I'm here to call NowShowing MovieResult");
-        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE, PAGE);
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying(API_KEY,LANGUAGE, PAGE);
         String requestUrl = getNowPlaying.request().url().toString();
         Log.e(TAG,requestUrl);
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
 
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
-                Log.e("MovieResult",data.toString());
+
+                Log.e(TAG,data.toString()); //Result is null when minifyEnabled true
+
+//                List<Result> movieList = data.getResults();
+//
+//                for(Result result: movieList) {
+//                    Log.e("Titles ", result.getTitle());
+//                }
 
             }
             @Override
@@ -286,27 +217,4 @@ public class MainActivity extends BaseActivity {
         //Log.e(TAG,homeMovie.getUpcomingMovie().toString());
     }
 
-
-
-
 }
-
-//    private void customCall() {
-//        Call<MovieResult> call = RestClient.getNowPlaying().getNowPlaying("afd84ed60249491a627b9fb517b38ae0",LANGUAGE,PAGE);
-//        call.enqueue(new Callback<MovieResult>() {
-//            @Override
-//            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-//                if(response.isSuccessful()){
-//                    Log.e("CustomCall",response.body().toString());
-//                }
-//                else{
-//                    Log.e("CustomCall","response not success ful");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MovieResult> call, Throwable t) {
-//                Log.e(TAG,t.getLocalizedMessage());
-//            }
-//        });
-//    }

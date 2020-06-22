@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class MovieResult{
 
-	@SerializedName("dates")
-	private Dates dates;
-
 	@SerializedName("page")
 	private int page;
 
@@ -19,14 +16,6 @@ public class MovieResult{
 
 	@SerializedName("total_results")
 	private int totalResults;
-
-	public void setDates(Dates dates){
-		this.dates = dates;
-	}
-
-	public Dates getDates(){
-		return dates;
-	}
 
 	public void setPage(int page){
 		this.page = page;
@@ -61,14 +50,13 @@ public class MovieResult{
 	}
 
 	@Override
- 	public String toString(){
-		return 
-			"MovieResult{" + 
-			"dates = '" + dates + '\'' + 
-			",page = '" + page + '\'' + 
-			",total_pages = '" + totalPages + '\'' + 
-			",results = '" + results + '\'' + 
-			",total_results = '" + totalResults + '\'' + 
-			"}";
-		}
+	public String toString(){
+		return
+				"MovieResult{" +
+						"page = '" + page + '\'' +
+						",total_pages = '" + totalPages + '\'' +
+						",results = '" + results + '\'' +
+						",total_results = '" + totalResults + '\'' +
+						"}";
+	}
 }
