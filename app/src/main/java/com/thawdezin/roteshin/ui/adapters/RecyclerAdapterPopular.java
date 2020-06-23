@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
-import com.thawdezin.roteshin.model.FilmItem;
+import com.thawdezin.roteshin.model.Result;
 
 
 import java.util.List;
@@ -23,10 +24,10 @@ import java.util.List;
 public class RecyclerAdapterPopular extends RecyclerView.Adapter<RecyclerAdapterPopular.PopularViewHolder> {
 
     Context context;
-    List<FilmItem> movieList;
-    FilmItem filmItem;
+    List<Result> movieList;
+    Result result;
 
-    public RecyclerAdapterPopular(Context context, List<FilmItem> movieList) {
+    public RecyclerAdapterPopular(Context context, List<Result> movieList) {
         this.context = context;
         this.movieList = movieList;
 
@@ -41,8 +42,12 @@ public class RecyclerAdapterPopular extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterPopular.PopularViewHolder holder, int position) {
-        FilmItem filmItem = movieList.get(position);
-        holder.tvTitleNowShow.setText(filmItem.getTitle());
+        Result result = movieList.get(position);
+        holder.tvTitleNowShow.setText(result.getTitle());
+        //Glide.with(itemView.getContext()).load(downloadUri).into(blogImageView);
+        Glide.with(holder.ivItemNowShow.getContext())
+                .load(result.getUrlThumbnailUrl())
+                .into(holder.ivItemNowShow);
     }
 
     @Override
@@ -50,7 +55,7 @@ public class RecyclerAdapterPopular extends RecyclerView.Adapter<RecyclerAdapter
         return movieList.size();
     }
 
-    public void setMovieList(List<FilmItem> movieList) {
+    public void setMovieList(List<Result> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }

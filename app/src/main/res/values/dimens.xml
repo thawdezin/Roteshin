@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_movie_width">100dp</dimen>
-    <dimen name="item_movie_height">125dp</dimen>
+    <dimen name="item_movie_width">150dp</dimen>
+    <dimen name="item_movie_height">225dp</dimen>
+
+    <dimen name="recyclerViewTop"> </dimen>
+    <dimen name="recyclerViewBottom"> </dimen>
+    <dimen name="recyclerViewStart"> </dimen>
+    <dimen name="recyclerViewEnd"> </dimen>
 </resources>

@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
 import com.thawdezin.roteshin.model.Result;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -41,6 +43,11 @@ public class RecyclerAdapterNowShowing extends RecyclerView.Adapter<RecyclerAdap
     public void onBindViewHolder(@NonNull RecyclerAdapterNowShowing.NowShowingViewHolder holder, int position) {
         Result result = movieList.get(position);
         holder.tvTitleNowShow.setText(result.getTitle());
+        //Glide.with(itemView.getContext()).load(downloadUri).into(blogImageView);
+        Glide.with(holder.ivItemNowShow.getContext())
+                .load(result.getUrlThumbnailUrl())
+                .error(R.drawable.place_holder)
+                .into(holder.ivItemNowShow);
     }
 
     @Override

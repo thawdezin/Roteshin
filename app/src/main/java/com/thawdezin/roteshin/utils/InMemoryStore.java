@@ -1,5 +1,6 @@
 package com.thawdezin.roteshin.utils;
 
+import com.thawdezin.roteshin.model.Genres;
 import com.thawdezin.roteshin.model.GenresList;
 
 /**
@@ -9,7 +10,7 @@ public class InMemoryStore {
 
     private static final InMemoryStore ourInstance = new InMemoryStore();
 
-    private GenresList genresList;
+    private Genres genresList;
 
     private InMemoryStore() {
     }
@@ -18,11 +19,11 @@ public class InMemoryStore {
         return ourInstance;
     }
 
-    public GenresList getGenresList() {
+    public Genres getGenresList() {
         return genresList;
     }
 
-    public void setGenresList(GenresList genresList) {
+    public void setGenresList(Genres genresList) {
         this.genresList = genresList;
     }
 }

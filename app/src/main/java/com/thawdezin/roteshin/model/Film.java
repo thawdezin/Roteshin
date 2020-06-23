@@ -9,27 +9,33 @@ import java.util.List;
  * Created by Thaw De Zin on June 21, 2020
  */
 public class Film {
+
     @SerializedName("results")
     @Expose
-    private List<FilmItem> filmItem = null;
+    private List<String> filmItem;
+
     @SerializedName("page")
     @Expose
     private Integer page;
+
     @SerializedName("total_results")
     @Expose
     private Integer totalResults;
+
     @SerializedName("dates")
     @Expose
     private Dates dates;
+
     @SerializedName("total_pages")
     @Expose
     private Integer totalPages;
 
-    public List<FilmItem> getFilmItem() {
+
+    public List<String> getFilmItem() {
         return filmItem;
     }
 
-    public void setFilmItem(List<FilmItem> filmItem) {
+    public void setFilmItem(List<String> filmItem) {
         this.filmItem = filmItem;
     }
 

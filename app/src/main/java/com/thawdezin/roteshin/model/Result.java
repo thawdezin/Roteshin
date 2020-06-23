@@ -3,7 +3,7 @@ package com.thawdezin.roteshin.model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieItem {
+public class Result {
 
 	@SerializedName("overview")
 	private String overview;
@@ -32,8 +32,8 @@ public class MovieItem {
 	@SerializedName("release_date")
 	private String releaseDate;
 
-//	@SerializedName("popularity")
-//	private double popularity;
+	@SerializedName("popularity")
+	private double popularity;
 
 	@SerializedName("vote_average")
 	private double voteAverage;
@@ -119,13 +119,13 @@ public class MovieItem {
 		return releaseDate;
 	}
 
-//	public void setPopularity(double popularity){
-//		this.popularity = popularity;
-//	}
-//
-//	public double getPopularity(){
-//		return popularity;
-//	}
+	public void setPopularity(double popularity){
+		this.popularity = popularity;
+	}
+
+	public double getPopularity(){
+		return popularity;
+	}
 
 	public void setVoteAverage(double voteAverage){
 		this.voteAverage = voteAverage;
@@ -159,24 +159,28 @@ public class MovieItem {
 		return voteCount;
 	}
 
+	public String getUrlThumbnailUrl(){
+		return "https://image.tmdb.org/t/p/w500" + getPosterPath();
+	}
+
 	@Override
- 	public String toString(){
-		return 
-			"MovieItem{" +
-			"overview = '" + overview + '\'' + 
-			",original_language = '" + originalLanguage + '\'' + 
-			",original_title = '" + originalTitle + '\'' + 
-			",video = '" + video + '\'' + 
-			",title = '" + title + '\'' + 
-			",genre_ids = '" + genreIds + '\'' + 
-			",poster_path = '" + posterPath + '\'' + 
-			",backdrop_path = '" + backdropPath + '\'' + 
-			",release_date = '" + releaseDate + '\'' + 
-//			",popularity = '" + popularity + '\'' +
-			",vote_average = '" + voteAverage + '\'' + 
-			",id = '" + id + '\'' + 
-			",adult = '" + adult + '\'' + 
-			",vote_count = '" + voteCount + '\'' + 
-			"}";
-		}
+	public String toString(){
+		return
+				"Result{" +
+						"overview = '" + overview + '\'' +
+						",original_language = '" + originalLanguage + '\'' +
+						",original_title = '" + originalTitle + '\'' +
+						",video = '" + video + '\'' +
+						",title = '" + title + '\'' +
+						",genre_ids = '" + genreIds + '\'' +
+						",poster_path = '" + posterPath + '\'' +
+						",backdrop_path = '" + backdropPath + '\'' +
+						",release_date = '" + releaseDate + '\'' +
+						",popularity = '" + popularity + '\'' +
+						",vote_average = '" + voteAverage + '\'' +
+						",id = '" + id + '\'' +
+						",adult = '" + adult + '\'' +
+						",vote_count = '" + voteCount + '\'' +
+						"}";
+	}
 }

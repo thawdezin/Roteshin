@@ -15,74 +15,40 @@ import java.util.List;
 
 public class Movie {
 
-    @SerializedName("results")
-    @Expose
-    private List<MovieItem> results = null;
+    private List<Result> nowPlaying;
+    private List<Result> popularMovie;
+    private List<Result> upcomingMovie;
 
-    @SerializedName("page")
-    @Expose
-    private Integer page;
-
-    @SerializedName("total_results")
-    @Expose
-    private Integer totalResults;
-
-//    @SerializedName("dates")
-//    @Expose
-//    private Dates dates;
-
-    @SerializedName("total_pages")
-    @Expose
-    private Integer totalPages;
-
-    public List<MovieItem> getResults() {
-        return results;
+    public List<Result> getNowPlaying() {
+        return nowPlaying;
     }
 
-    public void setResults(List<MovieItem> results) {
-        this.results = results;
+    public void setNowPlaying(List<Result> nowPlaying) {
+        this.nowPlaying = nowPlaying;
     }
 
-    public Integer getPage() {
-        return page;
+    public List<Result> getPopularMovie() {
+        return popularMovie;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPopularMovie(List<Result> popularMovie) {
+        this.popularMovie = popularMovie;
     }
 
-    public Integer getTotalResults() {
-        return totalResults;
+    public List<Result> getUpcomingMovie() {
+        return upcomingMovie;
     }
 
-    public void setTotalResults(Integer totalResults) {
-        this.totalResults = totalResults;
-    }
-
-//    public Dates getDates() {
-//        return dates;
-//    }
-//
-//    public void setDates(Dates dates) {
-//        this.dates = dates;
-//    }
-
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
+    public void setUpcomingMovie(List<Result> upcomingMovie) {
+        this.upcomingMovie = upcomingMovie;
     }
 
     @Override
     public String toString() {
-        return "MovieResult{" +
-                "results=" + results +
-                ", page=" + page +
-                ", totalResults=" + totalResults +
-//                ", dates=" + dates +
-                ", totalPages=" + totalPages +
+        return "Movie{" +
+                "nowPlaying=" + nowPlaying +
+                ", popularMovie=" + popularMovie +
+                ", upcomingMovie=" + upcomingMovie +
                 '}';
     }
 }
