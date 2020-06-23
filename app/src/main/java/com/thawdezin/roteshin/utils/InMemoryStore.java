@@ -1,7 +1,6 @@
 package com.thawdezin.roteshin.utils;
 
 import com.thawdezin.roteshin.model.Genres;
-import com.thawdezin.roteshin.model.GenresList;
 
 /**
  * Created by Thaw De Zin on June 18, 2020

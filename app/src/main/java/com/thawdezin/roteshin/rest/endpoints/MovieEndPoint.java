@@ -1,5 +1,6 @@
 package com.thawdezin.roteshin.rest.endpoints;
 
+import com.thawdezin.roteshin.model.Genres;
 import com.thawdezin.roteshin.model.MovieResult;
 
 import retrofit2.Call;
@@ -31,4 +32,12 @@ public interface MovieEndPoint {
             @Query("language") String language,
             @Query("page") int pageNo
     );
+
+    @GET("/3/genre/movie/list")
+    Call<Genres> getGenresList(
+            @Query("api_key") String api_key,
+            @Query("language") String language,
+            @Query("page") int pageNo
+    );
+
 }

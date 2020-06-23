@@ -3,8 +3,8 @@
     <dimen name="item_movie_width">150dp</dimen>
     <dimen name="item_movie_height">225dp</dimen>
 
-    <dimen name="recyclerViewTop"> </dimen>
-    <dimen name="recyclerViewBottom"> </dimen>
-    <dimen name="recyclerViewStart"> </dimen>
-    <dimen name="recyclerViewEnd"> </dimen>
+    <dimen name="recyclerViewTop"> 8dp </dimen>
+    <dimen name="recyclerViewBottom"> 8dp </dimen>
+    <dimen name="recyclerViewStart"> 8dp </dimen>
+    <dimen name="recyclerViewEnd"> 8dp </dimen>
 </resources>

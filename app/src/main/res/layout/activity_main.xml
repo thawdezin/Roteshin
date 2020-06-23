@@ -65,10 +65,6 @@
 
         <include layout="@layout/layout_error" />
 
-
-
     </FrameLayout>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

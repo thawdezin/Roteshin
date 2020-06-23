@@ -20,10 +20,4 @@ public interface GenreEndPoint {
             @Query("page") int pageNo
     );
 
-    @GET("/3/genre/movie/list")
-    Call<List<Genres>> getGenres(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
-    );
 }
