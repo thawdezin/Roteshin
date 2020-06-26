@@ -1,5 +1,7 @@
 package com.thawdezin.roteshin.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
@@ -163,6 +165,9 @@ public class Result {
 		return "https://image.tmdb.org/t/p/w500" + getPosterPath();
 	}
 
+
+
+	@NonNull
 	@Override
 	public String toString(){
 		return

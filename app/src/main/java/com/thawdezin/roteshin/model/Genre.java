@@ -1,16 +1,19 @@
 package com.thawdezin.roteshin.model;
 
-/**
- * Created by Thaw De Zin on June 19, 2020
- */
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created by Thaw De Zin on June 19, 2020
+ */
 public class Genre {
 
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -31,6 +34,7 @@ public class Genre {
         this.name = name;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Genre{" +
@@ -38,4 +42,6 @@ public class Genre {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }

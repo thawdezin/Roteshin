@@ -1,11 +1,14 @@
 package com.thawdezin.roteshin.model;
 
-/**
- * Created by Thaw De Zin on June 19, 2020
- */
+import androidx.annotation.NonNull;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+/**
+ * Created by Thaw De Zin on June 19, 2020
+ */
 
 public class Genres {
 
@@ -21,10 +24,12 @@ public class Genres {
         this.genres = genres;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Genres{" +
                 "genres=" + genres +
                 '}';
     }
+
 }

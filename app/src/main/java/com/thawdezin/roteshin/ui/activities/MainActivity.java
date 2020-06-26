@@ -1,6 +1,7 @@
 package com.thawdezin.roteshin.ui.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,9 +72,7 @@ public class MainActivity extends BaseActivity {
 
         bindViews();
         recyclerViewPrepare();
-
         fetchAll();
-
         //fetchGenre();
 
     }
@@ -89,7 +88,6 @@ public class MainActivity extends BaseActivity {
 
                 upcomingMovieList = data.getResults();
                 recyclerAdapterUpcoming.setMovieList(upcomingMovieList);
-
 
             }
             @Override
@@ -114,9 +112,7 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
                 popularMovieList = data.getResults();
-
                 recyclerAdapterPopular.setMovieList(popularMovieList);
-
 
             }
             @Override
@@ -141,7 +137,7 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
                 nowPlayingMovieList = data.getResults();
-
+                Log.e("Total Pages",String.valueOf(data.getTotalPages()));
                 recyclerAdapterNowShowing.setMovieList(nowPlayingMovieList);
 
             }
@@ -164,12 +160,12 @@ public class MainActivity extends BaseActivity {
         RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<Genres>() {
             @Override
             protected void onSuccess(@NonNull Genres data, int responseCode) {
-
+                InMemoryStore.getInstance().setGenresList(data);
             }
 
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-
+                t.printStackTrace();
             }
 
             @Override
@@ -180,7 +176,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void recyclerViewPrepare() {
-//        LinearLayout linearLayout = new LinearLayout(this);
+//      LinearLayout linearLayout = new LinearLayout(this);
         recyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewNowShowing.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -249,12 +245,12 @@ public class MainActivity extends BaseActivity {
     }
 
     private void finalStepForShowingUI() {
-        //viewMain();
+        viewMain();
     }
 
     private void fetchAll(){
-        Genres a = InMemoryStore.getInstance().getGenresList();
-        if(a == null){
+        Genres genres = InMemoryStore.getInstance().getGenresList();
+        if(genres == null){
             fetchGenre();
         }
 

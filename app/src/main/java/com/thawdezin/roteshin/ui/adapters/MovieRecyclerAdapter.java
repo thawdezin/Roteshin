@@ -1,6 +1,8 @@
 package com.thawdezin.roteshin.ui.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
+import com.thawdezin.roteshin.model.Genre;
+import com.thawdezin.roteshin.model.Genres;
 import com.thawdezin.roteshin.model.Result;
+import com.thawdezin.roteshin.utils.InMemoryStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,10 +47,26 @@ public class MovieRecyclerAdapter  extends RecyclerView.Adapter<MovieRecyclerAda
     public void onBindViewHolder(@NonNull MovieRecyclerAdapter.MovieViewHolder holder, int position) {
         Result result = movieList.get(position);
         holder.tvTitleNowShow.setText(result.getTitle());
+        holder.tvGenresNowShow.setText(getGenresLabel(result.getGenreIds()));
         Glide.with(holder.ivItemNowShow.getContext())
                 .load(result.getUrlThumbnailUrl())
                 .error(R.drawable.place_holder)
                 .into(holder.ivItemNowShow);
+    }
+
+    private String getGenresLabel(List<Integer> genreIds) {
+        Genres g = InMemoryStore.getInstance().getGenresList();
+        List<Genre> allGenres =  g.getGenres();
+        List<String> movieGenres = new ArrayList<>();
+        for (Integer genreId : genreIds) {
+            for (Genre genre : allGenres) {
+                if (genre.getId().equals(genreId)) {
+                    movieGenres.add(genre.getName());
+                    break;
+                }
+            }
+        }
+        return TextUtils.join(", ", movieGenres);
     }
 
     @Override

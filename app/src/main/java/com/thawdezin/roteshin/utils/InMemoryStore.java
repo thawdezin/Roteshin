@@ -11,6 +11,7 @@ public class InMemoryStore {
 
     private Genres genresList;
 
+
     private InMemoryStore() {
     }
 
@@ -25,4 +26,5 @@ public class InMemoryStore {
     public void setGenresList(Genres genresList) {
         this.genresList = genresList;
     }
+
 }

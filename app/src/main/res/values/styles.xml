@@ -9,7 +9,6 @@
         <item name="colorOnSecondary">#ffffff</item>
         <item name="fontFamily">@font/ubuntu</item>
         <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="toolbarStyle">@style/MyToolbarStyle</item>
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
 
     </style>
@@ -41,9 +40,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <style name="MyToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
     </style>
 
 </resources>
