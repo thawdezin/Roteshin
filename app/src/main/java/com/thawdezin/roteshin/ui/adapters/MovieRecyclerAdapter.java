@@ -55,8 +55,7 @@ public class MovieRecyclerAdapter  extends RecyclerView.Adapter<MovieRecyclerAda
     }
 
     private String getGenresLabel(List<Integer> genreIds) {
-        Genres g = InMemoryStore.getInstance().getGenresList();
-        List<Genre> allGenres =  g.getGenres();
+        List<Genre> allGenres =  InMemoryStore.getInstance().getGenresList().getGenres();
         List<String> movieGenres = new ArrayList<>();
         for (Integer genreId : genreIds) {
             for (Genre genre : allGenres) {

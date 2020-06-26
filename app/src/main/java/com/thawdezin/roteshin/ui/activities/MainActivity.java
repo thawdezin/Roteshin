@@ -137,7 +137,6 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
                 nowPlayingMovieList = data.getResults();
-                Log.e("Total Pages",String.valueOf(data.getTotalPages()));
                 recyclerAdapterNowShowing.setMovieList(nowPlayingMovieList);
 
             }
