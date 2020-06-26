@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="list_movie_width">170dp</dimen>
+    <dimen name="list_movie_height">300dp</dimen>
+
     <dimen name="item_movie_width">150dp</dimen>
     <dimen name="item_movie_height">225dp</dimen>
 
