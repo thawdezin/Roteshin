@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                upcomingMovieList = data.getResults();
+                upcomingMovieList = data.getResults().subList(0,5);
                 recyclerAdapterUpcoming.setMovieList(upcomingMovieList);
 
             }
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                popularMovieList = data.getResults();
+                popularMovieList = data.getResults().subList(0,5);
                 recyclerAdapterPopular.setMovieList(popularMovieList);
 
             }
@@ -133,7 +133,8 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                nowPlayingMovieList = data.getResults();
+                nowPlayingMovieList = data.getResults().subList(0,5);
+                //List<String> list = arrl.subList(2, 4);
                 recyclerAdapterNowShowing.setMovieList(nowPlayingMovieList);
 
             }
