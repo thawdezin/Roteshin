@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void fetchGenre(){
-        final Call<Genres> getGenres = RestClient.getGenreEndPoint().getGenresList(API_KEY,LANGUAGE, PAGE);
+        final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList(API_KEY,LANGUAGE, PAGE);
 
         RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<Genres>() {
             @Override
