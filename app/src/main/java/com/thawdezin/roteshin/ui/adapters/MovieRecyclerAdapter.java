@@ -2,7 +2,6 @@ package com.thawdezin.roteshin.ui.adapters;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
 import com.thawdezin.roteshin.model.Genre;
-import com.thawdezin.roteshin.model.Genres;
 import com.thawdezin.roteshin.model.Result;
 import com.thawdezin.roteshin.utils.InMemoryStore;
 

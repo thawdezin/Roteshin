@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 
-
 public class MainActivity extends BaseActivity {
 
     private String TAG = "Main Activity";
@@ -52,8 +51,6 @@ public class MainActivity extends BaseActivity {
 
     int vGone = View.GONE;
     int vVisible = View.VISIBLE;
-
-
 
     public static String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
     public static String LANGUAGE = "en-US";
