@@ -12,9 +12,14 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RestClient {
+public final class RestClient {
 
     private static Retrofit sRetrofit;
+
+    private static MovieEndPoint sMovieEndPoint;
+
+    private RestClient() {
+    }
 
     private static Retrofit getRetrofit() {
         if (sRetrofit == null) {
@@ -24,11 +29,6 @@ public class RestClient {
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-//            sRetrofit = new retrofit2.Retrofit.Builder()
-//                    .baseUrl(BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-
         }
         return sRetrofit;
     }
@@ -58,7 +58,10 @@ public class RestClient {
     }
 
     public static MovieEndPoint getMovieEndPoint(){
-        return getRetrofit().create(MovieEndPoint.class);
+        if(sMovieEndPoint==null){
+            sMovieEndPoint = getRetrofit().create(MovieEndPoint.class);
+        }
+        return sMovieEndPoint;
     }
 
 }

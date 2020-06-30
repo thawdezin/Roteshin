@@ -5,20 +5,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textview.MaterialTextView;
+import com.google.android.material.button.MaterialButton;
 import com.thawdezin.roteshin.R;
+import com.thawdezin.roteshin.app.GlideApp;
 import com.thawdezin.roteshin.model.Genres;
 
+import com.thawdezin.roteshin.model.Movie;
 import com.thawdezin.roteshin.model.MovieResult;
-import com.thawdezin.roteshin.model.Result;
 import com.thawdezin.roteshin.rest.RestClient;
 import com.thawdezin.roteshin.rest.RetrofitCallbackHelper;
 import com.thawdezin.roteshin.ui.activities.base.BaseActivity;
@@ -29,38 +28,33 @@ import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 
-public class MainActivity extends BaseActivity {
+public final class MainActivity extends BaseActivity {
 
     private String TAG = "Main Activity";
 
-    NestedScrollView contentMain;
-    ConstraintLayout contentLoading;
-    ConstraintLayout contentError;
+    private NestedScrollView contentMain;
+    private ConstraintLayout contentLoading;
+    private ConstraintLayout contentError;
+    private RecyclerView recyclerViewNowShowing;
+    private RecyclerView recyclerViewPopular;
+    private RecyclerView recyclerViewUpcoming;
+    private MovieRecyclerAdapter recyclerAdapterNowShowing;
+    private MovieRecyclerAdapter recyclerAdapterPopular;
+    private MovieRecyclerAdapter recyclerAdapterUpcoming;
+    private MaterialButton retryBtn;
 
-    RecyclerView recyclerViewNowShowing;
-    RecyclerView recyclerViewPopular;
-    RecyclerView recyclerViewUpcoming;
+    private String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
+    private String LANGUAGE = "en-US";
+    private int PAGE = 1;
 
-    MovieRecyclerAdapter recyclerAdapterNowShowing;
-    MovieRecyclerAdapter recyclerAdapterPopular;
-    MovieRecyclerAdapter recyclerAdapterUpcoming;
+    private List<Movie> nowPlayingMovieList = new ArrayList<>();
+    private List<Movie> popularMovieList = new ArrayList<>();
+    private List<Movie> upcomingMovieList = new ArrayList<>();
 
-    MaterialTextView tvGenres;
-    MaterialTextView tvItemTitle;
-    ImageView ivItem;
+    private boolean isLoadingShowing = false;
 
-    int vGone = View.GONE;
-    int vVisible = View.VISIBLE;
-
-    public static String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
-    public static String LANGUAGE = "en-US";
-    public static int PAGE = 1;
-
-    List<Result> movieList = new ArrayList<>();
-
-    List<Result> nowPlayingMovieList = new ArrayList<>();
-    List<Result> popularMovieList = new ArrayList<>();
-    List<Result> upcomingMovieList = new ArrayList<>();
+    @NonNull
+    private Runnable retryRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +64,21 @@ public class MainActivity extends BaseActivity {
         bindViews();
         recyclerViewPrepare();
         fetchAll();
-        //fetchGenre();
+        onRetry();
 
     }
 
+    private void onRetry() {
+        retryBtn.setOnClickListener(v -> {
+            fetchAll();
+        });
+    }
+
     private void fetchUpcoming() {
+
+        if(!isLoadingShowing){
+            viewLoading();
+        }
 
         final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getUpcoming(API_KEY,LANGUAGE, PAGE);
 
@@ -83,7 +87,7 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                upcomingMovieList = data.getResults().subList(0,5);
+                upcomingMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterUpcoming.setMovieList(upcomingMovieList);
 
             }
@@ -93,13 +97,15 @@ public class MainActivity extends BaseActivity {
             }
             @Override
             protected void onComplete() {
-                //fetchAll();
                 viewMain();
             }
         });
     }
 
     private void fetchPopular() {
+        if(!isLoadingShowing){
+            viewLoading();
+        }
 
         final Call<MovieResult> getPopular = RestClient.getMovieEndPoint().getPopular(API_KEY,LANGUAGE, PAGE);
 
@@ -108,24 +114,25 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                popularMovieList = data.getResults().subList(0,5);
+                popularMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterPopular.setMovieList(popularMovieList);
 
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                viewError();
+
             }
             @Override
             protected void onComplete() {
-                viewMain();
-                //fetchAll();
+                fetchUpcoming();
             }
         });
     }
 
     private void fetchNowPlaying() {
-
+        if(!isLoadingShowing){
+            viewLoading();
+        }
         final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying(API_KEY,LANGUAGE, PAGE);
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
@@ -133,25 +140,28 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
-                nowPlayingMovieList = data.getResults().subList(0,5);
-                //List<String> list = arrl.subList(2, 4);
+                nowPlayingMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterNowShowing.setMovieList(nowPlayingMovieList);
 
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                viewError();
+                //int a = MainActivity.this::fetchNowPlaying;
             }
             @Override
             protected void onComplete() {
-                viewMain();
-                //fetchAll();
+                fetchPopular();
             }
         });
 
     }
 
     private void fetchGenre(){
+
+        if(!isLoadingShowing){
+            viewLoading();
+        }
+
         final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList(API_KEY,LANGUAGE, PAGE);
 
         RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<Genres>() {
@@ -162,25 +172,20 @@ public class MainActivity extends BaseActivity {
 
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                t.printStackTrace();
+
             }
 
             @Override
             protected void onComplete() {
-
+                fetchNowPlaying();
             }
         });
     }
 
     private void recyclerViewPrepare() {
-//      LinearLayout linearLayout = new LinearLayout(this);
-        recyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewNowShowing.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        recyclerAdapterNowShowing = new MovieRecyclerAdapter(getApplicationContext(),movieList);
-        recyclerAdapterPopular = new MovieRecyclerAdapter(getApplicationContext(),movieList);
-        recyclerAdapterUpcoming = new MovieRecyclerAdapter(getApplicationContext(),movieList);
+        recyclerAdapterNowShowing = new MovieRecyclerAdapter();
+        recyclerAdapterPopular = new MovieRecyclerAdapter();
+        recyclerAdapterUpcoming = new MovieRecyclerAdapter();
 
         recyclerViewNowShowing.setAdapter(recyclerAdapterNowShowing);
         recyclerViewPopular.setAdapter(recyclerAdapterPopular);
@@ -197,10 +202,7 @@ public class MainActivity extends BaseActivity {
         recyclerViewPopular = findViewById(R.id.rvPopularMovie);
         recyclerViewUpcoming = findViewById(R.id.rvUpcomingMovie);
 
-        tvGenres = findViewById(R.id.tvMoiveItemGenre);
-        tvItemTitle = findViewById(R.id.tvItemTitle);
-        ivItem = findViewById(R.id.ivMovieItem);
-
+        retryBtn = findViewById(R.id.btnMainRetry);
         viewLoading();
     }
 
@@ -226,38 +228,36 @@ public class MainActivity extends BaseActivity {
     }
 
     private void viewLoading(){
-        contentLoading.setVisibility(vVisible);
-        contentMain.setVisibility(vGone);
-        contentError.setVisibility(vGone);
+        contentLoading.setVisibility(View.VISIBLE);
+        contentMain.setVisibility(View.GONE);
+        contentError.setVisibility(View.GONE);
     }
     private void viewError(){
-        contentError.setVisibility(vVisible);
-        contentLoading.setVisibility(vGone);
-        contentMain.setVisibility(vGone);
+        isLoadingShowing = false;
+        contentError.setVisibility(View.VISIBLE);
+        contentLoading.setVisibility(View.GONE);
+        contentMain.setVisibility(View.GONE);
     }
     private void viewMain(){
-        contentMain.setVisibility(vVisible);
-        contentLoading.setVisibility(vGone);
-        contentError.setVisibility(vGone);
-    }
-
-    private void finalStepForShowingUI() {
-        viewMain();
+        contentMain.setVisibility(View.VISIBLE);
+        contentLoading.setVisibility(View.GONE);
+        contentError.setVisibility(View.GONE);
     }
 
     private void fetchAll(){
         Genres genres = InMemoryStore.getInstance().getGenresList();
         if(genres == null){
             fetchGenre();
+        }else{
+            if(popularMovieList.isEmpty() && nowPlayingMovieList.isEmpty() && upcomingMovieList.isEmpty()){
+                fetchNowPlaying();
+            }
         }
 
-        if(popularMovieList.isEmpty() && nowPlayingMovieList.isEmpty() && upcomingMovieList.isEmpty()){
-            fetchNowPlaying();
-            fetchPopular();
-            fetchUpcoming();
-        }else{
-            finalStepForShowingUI();
-        }
+//        if(popularMovieList.isEmpty() && nowPlayingMovieList.isEmpty() && upcomingMovieList.isEmpty()){
+//            Log.e(TAG,"now fetch");
+//            fetchNowPlaying();
+//        }
     }
 
 }

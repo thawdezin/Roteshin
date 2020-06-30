@@ -5,26 +5,18 @@ import androidx.annotation.NonNull;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieResult{
+public final class MovieResult{
 
 	@SerializedName("results")
-	private List<Result> results;
+	private List<Movie> movies;
 
-	public void setResults(List<Result> results){
-		this.results = results;
+	public List<Movie> getMovies(){
+		return movies;
 	}
-
-	public List<Result> getResults(){
-		return results;
-	}
-
 
 	@NonNull
 	@Override
 	public String toString(){
-		return
-				"MovieResult{" +
-						",results = '" + results + '\'' +
-						"}";
+		return "MovieResult{" + ",movies = '" + movies + '\'' + "}";
 	}
 }

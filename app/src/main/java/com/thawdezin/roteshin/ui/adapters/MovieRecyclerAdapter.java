@@ -1,69 +1,37 @@
 package com.thawdezin.roteshin.ui.adapters;
 
-import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
-import com.thawdezin.roteshin.model.Genre;
-import com.thawdezin.roteshin.model.Result;
-import com.thawdezin.roteshin.utils.InMemoryStore;
+import com.thawdezin.roteshin.app.GlideApp;
+import com.thawdezin.roteshin.app.GlideRequests;
+import com.thawdezin.roteshin.model.Movie;
+import com.thawdezin.roteshin.ui.adapters.viewHolders.MovieViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Thaw De Zin on June 22, 2020
  */
-public class MovieRecyclerAdapter  extends RecyclerView.Adapter<MovieRecyclerAdapter.MovieViewHolder> {
+public final class MovieRecyclerAdapter  extends RecyclerView.Adapter<MovieViewHolder> {
 
-    Context context;
-    List<Result> movieList;
-
-    public MovieRecyclerAdapter(Context context, List<Result> movieList) {
-        this.context = context;
-        this.movieList = movieList;
-
-    }
+    List<Movie> movieList;
 
     @NonNull
     @Override
-    public MovieRecyclerAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_movie,parent,false);
-        return new MovieRecyclerAdapter.MovieViewHolder(view);
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie,parent,false);
+        return new MovieViewHolder(view, GlideApp.with(parent.getContext()));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieRecyclerAdapter.MovieViewHolder holder, int position) {
-        Result result = movieList.get(position);
-        holder.tvTitleNowShow.setText(result.getTitle());
-        holder.tvGenresNowShow.setText(getGenresLabel(result.getGenreIds()));
-        Glide.with(holder.ivItemNowShow.getContext())
-                .load(result.getUrlThumbnailUrl())
-                .error(R.drawable.place_holder)
-                .into(holder.ivItemNowShow);
-    }
-
-    private String getGenresLabel(List<Integer> genreIds) {
-        List<Genre> allGenres =  InMemoryStore.getInstance().getGenresList().getGenres();
-        List<String> movieGenres = new ArrayList<>();
-        for (Integer genreId : genreIds) {
-            for (Genre genre : allGenres) {
-                if (genre.getId().equals(genreId)) {
-                    movieGenres.add(genre.getName());
-                    break;
-                }
-            }
-        }
-        return TextUtils.join(", ", movieGenres);
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+        holder.bindMovie(movieList.get(position));
     }
 
     @Override
@@ -71,21 +39,9 @@ public class MovieRecyclerAdapter  extends RecyclerView.Adapter<MovieRecyclerAda
         return movieList.size();
     }
 
-    public void setMovieList(List<Result> movieList) {
+    public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
-
-        MaterialTextView tvTitleNowShow;
-        MaterialTextView tvGenresNowShow;
-        ImageView ivItemNowShow;
-        public MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitleNowShow = itemView.findViewById(R.id.tvItemTitle);
-            tvGenresNowShow = itemView.findViewById(R.id.tvMoiveItemGenre);
-            ivItemNowShow = itemView.findViewById(R.id.ivMovieItem);
-        }
-    }
 }

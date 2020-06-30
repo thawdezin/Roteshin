@@ -8,7 +8,7 @@ import android.os.Handler;
 
 import com.thawdezin.roteshin.R;
 
-public class SplashActivity extends AppCompatActivity {
+public final class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
