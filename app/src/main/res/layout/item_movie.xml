@@ -9,7 +9,7 @@
     android:orientation="vertical"
     >
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,15 +17,15 @@
         style="@style/CardViewStyle"
         >
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/ivMovieItem"
             android:layout_width="@dimen/item_movie_width"
             android:layout_height="@dimen/item_movie_height"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/place_holder"
-            />
+            android:contentDescription="@string/movie_poster" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvItemTitle"
