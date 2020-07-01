@@ -24,7 +24,7 @@
         card_view:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/tvSeeAllforPopularMovie"
+        android:id="@+id/btnSeeAllPopularMovie"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -47,6 +47,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvPopularMovie"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,6 +59,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvPopularMovieCount"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

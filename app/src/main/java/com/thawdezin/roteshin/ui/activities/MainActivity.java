@@ -48,6 +48,11 @@ public final class MainActivity extends BaseActivity {
     private MaterialTextView tvUpcomingCount;
     private MaterialTextView tvPopularCount;
 
+    private MaterialButton btnSeeAllNowShowing;
+    private MaterialButton btnSeeAllPopular;
+    private MaterialButton btnSeeAllUpcoming;
+
+
     private String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
     private String LANGUAGE = "en-US";
     private int PAGE = 1;
@@ -68,17 +73,21 @@ public final class MainActivity extends BaseActivity {
         bindViews();
         recyclerViewPrepare();
         fetchAll();
-        onRetry();
+        buttonClicks();
 
     }
 
-    private void onRetry() {
+    private void buttonClicks() {
         retryBtn.setOnClickListener(v -> {
             if (retryRunnable == null) {
                 retryRunnable = this::fetchGenre;
             }
             retryRunnable.run();
         });
+        btnSeeAllNowShowing.setOnClickListener(v->{});
+        btnSeeAllPopular.setOnClickListener(v->{});
+        btnSeeAllUpcoming.setOnClickListener(v->{});
+
     }
 
     private void fetchUpcoming() {
@@ -225,6 +234,10 @@ public final class MainActivity extends BaseActivity {
         tvNowShowingCount = findViewById(R.id.tvNowShowingCount);
         tvPopularCount = findViewById(R.id.tvPopularMovieCount);
         tvUpcomingCount = findViewById(R.id.tvUpcomingMovieCount);
+
+        btnSeeAllNowShowing = findViewById(R.id.btnSeeAllNowShowing);
+        btnSeeAllPopular = findViewById(R.id.btnSeeAllPopularMovie);
+        btnSeeAllUpcoming = findViewById(R.id.btnSeeAllUpcomingMovie);
 
         retryBtn = findViewById(R.id.btnMainRetry);
         tvLoadingLabel = findViewById(R.id.tvLoading);
