@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.thawdezin.roteshin.R;
 import com.thawdezin.roteshin.model.Genres;
 
@@ -41,6 +42,7 @@ public final class MainActivity extends BaseActivity {
     private MovieRecyclerAdapter recyclerAdapterPopular;
     private MovieRecyclerAdapter recyclerAdapterUpcoming;
     private MaterialButton retryBtn;
+    private MaterialTextView tvLoadingLabel;
 
     private String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
     private String LANGUAGE = "en-US";
@@ -52,10 +54,7 @@ public final class MainActivity extends BaseActivity {
 
     private boolean isLoadingShowing = false;
 
-    @NonNull
-    private Runnable retryRunnable = () -> {
-
-    };
+    private Runnable retryRunnable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +69,17 @@ public final class MainActivity extends BaseActivity {
     }
 
     private void onRetry() {
-        retryBtn.setOnClickListener(v ->
-            fetchAll()
-        );
+        retryBtn.setOnClickListener(v -> {
+            if(retryRunnable!=null){
+                retryRunnable.run();
+            }
+        });
     }
 
     private void fetchUpcoming() {
 
         if(!isLoadingShowing){
-            viewLoading();
+            viewLoading("Loading upcoming movies");
         }
 
         final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getUpcoming(API_KEY,LANGUAGE, PAGE);
@@ -105,7 +106,7 @@ public final class MainActivity extends BaseActivity {
 
     private void fetchPopular() {
         if(!isLoadingShowing){
-            viewLoading();
+            viewLoading("Loading popular movies");
         }
 
         final Call<MovieResult> getPopular = RestClient.getMovieEndPoint().getPopular(API_KEY,LANGUAGE, PAGE);
@@ -132,7 +133,7 @@ public final class MainActivity extends BaseActivity {
 
     private void fetchNowPlaying() {
         if(!isLoadingShowing){
-            viewLoading();
+            viewLoading("Loading now playing movies");
         }
         final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying(API_KEY,LANGUAGE, PAGE);
 
@@ -160,7 +161,7 @@ public final class MainActivity extends BaseActivity {
     private void fetchGenre(){
 
         if(!isLoadingShowing){
-            viewLoading();
+            viewLoading("Loading Genres");
         }
 
         final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList(API_KEY,LANGUAGE, PAGE);
@@ -204,7 +205,9 @@ public final class MainActivity extends BaseActivity {
         recyclerViewUpcoming = findViewById(R.id.rvUpcomingMovie);
 
         retryBtn = findViewById(R.id.btnMainRetry);
-        viewLoading();
+        tvLoadingLabel = findViewById(R.id.tvLoading);
+
+        viewLoading("Loading");
     }
 
     @Override
@@ -228,7 +231,8 @@ public final class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void viewLoading(){
+    private void viewLoading(String loadingLabel){
+        tvLoadingLabel.setText(loadingLabel);
         contentLoading.setVisibility(View.VISIBLE);
         contentMain.setVisibility(View.GONE);
         contentError.setVisibility(View.GONE);

@@ -17,7 +17,7 @@
         style="@style/CardViewStyle"
         >
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMovieItem"
             android:layout_width="@dimen/item_movie_width"
             android:layout_height="@dimen/item_movie_height"
@@ -29,19 +29,21 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvItemTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_gravity="center"
+        android:textAppearance="?textAppearanceBody1"
         android:singleLine="true"
         tools:text="Movie Name" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvMoiveItemGenre"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceCaption"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Thaw De Zin on June 19, 2020
  */
+
 public final class Genre {
 
     @SerializedName("id")
