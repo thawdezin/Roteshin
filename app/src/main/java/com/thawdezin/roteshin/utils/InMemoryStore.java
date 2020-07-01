@@ -48,7 +48,7 @@ public final class InMemoryStore {
     }
 
     public static String getGenresLabel(List<Integer> genreIds) {
-        List<Genre> allGenres =  InMemoryStore.getInstance().getGenresList().getGenres();
+        List<Genre> allGenres = InMemoryStore.getInstance().getGenresList().getGenres();
         List<String> movieGenres = new ArrayList<>();
         for (Integer genreId : genreIds) {
             for (Genre genre : allGenres) {

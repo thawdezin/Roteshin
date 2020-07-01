@@ -74,9 +74,10 @@ public final class MainActivity extends BaseActivity {
 
     private void onRetry() {
         retryBtn.setOnClickListener(v -> {
-            if(retryRunnable!=null){
-                retryRunnable.run();
+            if (retryRunnable == null) {
+                retryRunnable = this::fetchGenre;
             }
+            retryRunnable.run();
         });
     }
 
@@ -133,6 +134,7 @@ public final class MainActivity extends BaseActivity {
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
                 retryRunnable = MainActivity.this::fetchPopular;
+                Log.e(TAG,"Fetch Popular Fail");
             }
             @Override
             protected void onComplete() {
@@ -141,10 +143,11 @@ public final class MainActivity extends BaseActivity {
         });
     }
 
-    private void fetchNowPlaying() {
+    private void fetchNowShowing() {
         if(!isLoadingShowing){
             viewLoading("Loading now playing movies");
         }
+
         final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying(API_KEY,LANGUAGE, PAGE);
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
@@ -161,7 +164,8 @@ public final class MainActivity extends BaseActivity {
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                retryRunnable = MainActivity.this::fetchNowPlaying;
+                retryRunnable = MainActivity.this::fetchNowShowing;
+                Log.e(TAG,"Fetch NowShowing Fail");
             }
             @Override
             protected void onComplete() {
@@ -188,11 +192,12 @@ public final class MainActivity extends BaseActivity {
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
                retryRunnable = MainActivity.this::fetchGenre;
+                Log.e(TAG,"Fetch Genres Fail");
             }
 
             @Override
             protected void onComplete() {
-                fetchNowPlaying();
+                fetchNowShowing();
             }
         });
     }
@@ -271,8 +276,12 @@ public final class MainActivity extends BaseActivity {
         if(genres == null){
             fetchGenre();
         }else{
-            if(popularMovieList.isEmpty() && nowPlayingMovieList.isEmpty() && upcomingMovieList.isEmpty()){
-                fetchNowPlaying();
+            if(nowPlayingMovieList.isEmpty()){
+                fetchNowShowing();
+            }else if(popularMovieList.isEmpty()){
+                fetchPopular();
+            }else{
+                fetchUpcoming();
             }
         }
     }
