@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/list_movie_width"
-    android:layout_height="@dimen/list_movie_height"
+    android:layout_height="wrap_content"
     android:padding="4dp"
     android:orientation="vertical"
     >
@@ -31,11 +31,12 @@
         android:id="@+id/tvItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
         android:layout_gravity="center"
         android:textAppearance="?textAppearanceBody1"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:singleLine="true"
         tools:text="Movie Name" />
 
@@ -44,9 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?textAppearanceCaption"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:singleLine="true"
         android:layout_gravity="start"
         tools:text="Genre" />

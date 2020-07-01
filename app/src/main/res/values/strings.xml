@@ -16,4 +16,6 @@
     <string name="str_movie_load_error">Opps!, Failed to load movies</string>
     <string name="retry">Retry</string>
     <string name="movie_poster">Movie Poster</string>
+
+    <string name="movies"> Movies </string>
 </resources>

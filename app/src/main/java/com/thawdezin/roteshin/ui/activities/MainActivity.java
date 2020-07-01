@@ -44,6 +44,10 @@ public final class MainActivity extends BaseActivity {
     private MaterialButton retryBtn;
     private MaterialTextView tvLoadingLabel;
 
+    private MaterialTextView tvNowShowingCount;
+    private MaterialTextView tvUpcomingCount;
+    private MaterialTextView tvPopularCount;
+
     private String API_KEY = "afd84ed60249491a627b9fb517b38ae0";
     private String LANGUAGE = "en-US";
     private int PAGE = 1;
@@ -89,6 +93,9 @@ public final class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
+                String totalMovies =  String.valueOf(data.getMovies().size());
+                String totalMoviesString = totalMovies + " " + getResources().getString(R.string.movies);
+                tvUpcomingCount.setText(totalMoviesString);
                 upcomingMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterUpcoming.setMovieList(upcomingMovieList);
 
@@ -116,6 +123,9 @@ public final class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
+                String totalMovies =  String.valueOf(data.getMovies().size());
+                String totalMoviesString = totalMovies + " " + getResources().getString(R.string.movies);
+                tvPopularCount.setText(totalMoviesString);
                 popularMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterPopular.setMovieList(popularMovieList);
 
@@ -142,6 +152,9 @@ public final class MainActivity extends BaseActivity {
             @Override
             protected void onSuccess(@NonNull MovieResult data, int responseCode) {
 
+                String totalMovies =  String.valueOf(data.getMovies().size());
+                String totalMoviesString = totalMovies + " " + getResources().getString(R.string.movies);
+                tvNowShowingCount.setText(totalMoviesString);
                 nowPlayingMovieList = data.getMovies().subList(0,5);
                 recyclerAdapterNowShowing.setMovieList(nowPlayingMovieList);
 
@@ -203,6 +216,10 @@ public final class MainActivity extends BaseActivity {
         recyclerViewNowShowing = findViewById(R.id.rvNowShowing);
         recyclerViewPopular = findViewById(R.id.rvPopularMovie);
         recyclerViewUpcoming = findViewById(R.id.rvUpcomingMovie);
+
+        tvNowShowingCount = findViewById(R.id.tvNowShowingCount);
+        tvPopularCount = findViewById(R.id.tvPopularMovieCount);
+        tvUpcomingCount = findViewById(R.id.tvUpcomingMovieCount);
 
         retryBtn = findViewById(R.id.btnMainRetry);
         tvLoadingLabel = findViewById(R.id.tvLoading);
