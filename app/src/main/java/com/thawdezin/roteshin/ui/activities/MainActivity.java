@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.thawdezin.roteshin.R;
-import com.thawdezin.roteshin.app.GlideApp;
 import com.thawdezin.roteshin.model.Genres;
 
 import com.thawdezin.roteshin.model.Movie;
@@ -54,7 +53,9 @@ public final class MainActivity extends BaseActivity {
     private boolean isLoadingShowing = false;
 
     @NonNull
-    private Runnable retryRunnable;
+    private Runnable retryRunnable = () -> {
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +70,9 @@ public final class MainActivity extends BaseActivity {
     }
 
     private void onRetry() {
-        retryBtn.setOnClickListener(v -> {
-            fetchAll();
-        });
+        retryBtn.setOnClickListener(v ->
+            fetchAll()
+        );
     }
 
     private void fetchUpcoming() {
@@ -120,7 +121,7 @@ public final class MainActivity extends BaseActivity {
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-
+                retryRunnable = MainActivity.this::fetchPopular;
             }
             @Override
             protected void onComplete() {
@@ -146,7 +147,7 @@ public final class MainActivity extends BaseActivity {
             }
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-                //int a = MainActivity.this::fetchNowPlaying;
+                retryRunnable = MainActivity.this::fetchNowPlaying;
             }
             @Override
             protected void onComplete() {
@@ -172,7 +173,7 @@ public final class MainActivity extends BaseActivity {
 
             @Override
             protected void onFailure(Throwable t, int responseCode, int resultCode) {
-
+               retryRunnable = MainActivity.this::fetchGenre;
             }
 
             @Override
@@ -253,11 +254,6 @@ public final class MainActivity extends BaseActivity {
                 fetchNowPlaying();
             }
         }
-
-//        if(popularMovieList.isEmpty() && nowPlayingMovieList.isEmpty() && upcomingMovieList.isEmpty()){
-//            Log.e(TAG,"now fetch");
-//            fetchNowPlaying();
-//        }
     }
 
 }
