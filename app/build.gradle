@@ -15,11 +15,15 @@ android {
 
     buildTypes {
         release {
+            shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue 'string', 'lbl_app_name_version', 'Roteshin (Version ' + defaultConfig.versionName + ')'
         }
         debug {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue 'string', 'lbl_app_name_version', 'Roteshin (Version ' + defaultConfig.versionName + ')'
         }
     }
