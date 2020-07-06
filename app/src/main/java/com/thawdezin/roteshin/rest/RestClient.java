@@ -1,13 +1,13 @@
 package com.thawdezin.roteshin.rest;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
+import com.thawdezin.roteshin.rest.interceptor.NetworkConnectionInterceptor;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
 
 import java.io.File;
@@ -33,10 +33,11 @@ public final class RestClient {
     private static Retrofit getRetrofit(Context context) {
         if (sRetrofit == null) {
 
-            long SIZE_OF_CACHE = 10 * 1024 * 1024; // 10 MB
+            long SIZE_OF_CACHE = 50 * 1024 * 1024; // 10 MB
             Cache cache = new Cache(new File(context.getCacheDir(), "http"), SIZE_OF_CACHE);
 
             OkHttpClient okClientBuilder = new OkHttpClient.Builder()
+                    .addNetworkInterceptor(new NetworkConnectionInterceptor(context))
                     .addInterceptor(
                             chain -> {
                                 Request request = chain.request();
