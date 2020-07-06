@@ -96,7 +96,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading upcoming movies");
         }
 
-        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getUpcoming(API_KEY,LANGUAGE, PAGE);
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getUpcoming();
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -126,7 +126,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading popular movies");
         }
 
-        final Call<MovieResult> getPopular = RestClient.getMovieEndPoint().getPopular(API_KEY,LANGUAGE, PAGE);
+        final Call<MovieResult> getPopular = RestClient.getMovieEndPoint().getPopular();
 
         RestClient.enqueue(this, getPopular, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -157,7 +157,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading now playing movies");
         }
 
-        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying(API_KEY,LANGUAGE, PAGE);
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying();
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -190,7 +190,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading Genres");
         }
 
-        final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList(API_KEY,LANGUAGE, PAGE);
+        final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList();
 
         RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<Genres>() {
             @Override

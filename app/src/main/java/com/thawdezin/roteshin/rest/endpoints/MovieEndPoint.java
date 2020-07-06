@@ -14,30 +14,30 @@ public interface MovieEndPoint {
 
     @GET("/3/movie/now_playing")
     Call<MovieResult> getNowPlaying(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
+//            @Query("api_key") String api_key,
+//            @Query("language") String language,
+//            @Query("page") int pageNo
     );
 
     @GET("/3/movie/popular")
     Call<MovieResult> getPopular(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
+//            @Query("api_key") String api_key,
+//            @Query("language") String language,
+//            @Query("page") int pageNo
     );
 
     @GET("/3/movie/upcoming")
     Call<MovieResult> getUpcoming(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
+//            @Query("api_key") String api_key,
+//            @Query("language") String language,
+//            @Query("page") int pageNo
     );
 
     @GET("/3/genre/movie/list")
     Call<Genres> getGenresList(
-            @Query("api_key") String api_key,
-            @Query("language") String language,
-            @Query("page") int pageNo
+//            @Query("api_key") String api_key,
+//            @Query("language") String language,
+//            @Query("page") int pageNo
     );
 
 }

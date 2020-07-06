@@ -7,6 +7,13 @@ import androidx.lifecycle.LifecycleOwner;
 import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
 
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -24,9 +31,24 @@ public final class RestClient {
     private static Retrofit getRetrofit() {
         if (sRetrofit == null) {
 
+            OkHttpClient okClientBuilder = new OkHttpClient.Builder()
+                    .addInterceptor(
+                            chain -> {
+                                Request request = chain.request();
+                                HttpUrl url = request.url().newBuilder()
+                                        .addQueryParameter("api_key","afd84ed60249491a627b9fb517b38ae0")
+                                        .addQueryParameter("language","en-US")
+                                        .addQueryParameter("page","1")
+                                        .build();
+                                request = request.newBuilder().url(url).build();
+                                return chain.proceed(request);
+                            })
+                    .build();
+
             String BASE_URL = "https://api.themoviedb.org";
             sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(okClientBuilder)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
