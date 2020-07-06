@@ -1,5 +1,8 @@
 package com.thawdezin.roteshin.rest;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -7,13 +10,13 @@ import androidx.lifecycle.LifecycleOwner;
 import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
 
-import java.io.IOException;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -25,11 +28,13 @@ public final class RestClient {
 
     private static MovieEndPoint sMovieEndPoint;
 
-    private RestClient() {
-    }
+    private RestClient() { }
 
-    private static Retrofit getRetrofit() {
+    private static Retrofit getRetrofit(Context context) {
         if (sRetrofit == null) {
+
+            long SIZE_OF_CACHE = 10 * 1024 * 1024; // 10 MB
+            Cache cache = new Cache(new File(context.getCacheDir(), "http"), SIZE_OF_CACHE);
 
             OkHttpClient okClientBuilder = new OkHttpClient.Builder()
                     .addInterceptor(
@@ -43,6 +48,10 @@ public final class RestClient {
                                 request = request.newBuilder().url(url).build();
                                 return chain.proceed(request);
                             })
+                    .connectTimeout(5,TimeUnit.SECONDS)
+                    .readTimeout(5,TimeUnit.SECONDS)
+                    .writeTimeout(5,TimeUnit.SECONDS)
+                    .cache(cache)
                     .build();
 
             String BASE_URL = "https://api.themoviedb.org";
@@ -79,9 +88,9 @@ public final class RestClient {
         }
     }
 
-    public static MovieEndPoint getMovieEndPoint(){
+    public static MovieEndPoint getMovieEndPoint(Context context){
         if(sMovieEndPoint==null){
-            sMovieEndPoint = getRetrofit().create(MovieEndPoint.class);
+            sMovieEndPoint = getRetrofit(context).create(MovieEndPoint.class);
         }
         return sMovieEndPoint;
     }

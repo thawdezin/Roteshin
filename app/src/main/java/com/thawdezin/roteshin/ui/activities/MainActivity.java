@@ -1,5 +1,6 @@
 package com.thawdezin.roteshin.ui.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -96,7 +97,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading upcoming movies");
         }
 
-        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getUpcoming();
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint(getApplicationContext()).getUpcoming();
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -126,7 +127,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading popular movies");
         }
 
-        final Call<MovieResult> getPopular = RestClient.getMovieEndPoint().getPopular();
+        final Call<MovieResult> getPopular = RestClient.getMovieEndPoint(getApplicationContext()).getPopular();
 
         RestClient.enqueue(this, getPopular, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -157,7 +158,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading now playing movies");
         }
 
-        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint().getNowPlaying();
+        final Call<MovieResult> getNowPlaying = RestClient.getMovieEndPoint(getApplicationContext()).getNowPlaying();
 
         RestClient.enqueue(this, getNowPlaying, new RetrofitCallbackHelper<MovieResult>() {
 
@@ -190,7 +191,7 @@ public final class MainActivity extends BaseActivity {
             viewLoading("Loading Genres");
         }
 
-        final Call<Genres> getGenres = RestClient.getMovieEndPoint().getGenresList();
+        final Call<Genres> getGenres = RestClient.getMovieEndPoint(getApplicationContext()).getGenresList();
 
         RestClient.enqueue(this, getGenres, new RetrofitCallbackHelper<Genres>() {
             @Override
