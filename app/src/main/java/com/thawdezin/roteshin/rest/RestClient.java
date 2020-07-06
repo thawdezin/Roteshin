@@ -1,22 +1,30 @@
 package com.thawdezin.roteshin.rest;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.thawdezin.roteshin.app.AppUtils;
 import com.thawdezin.roteshin.rest.endpoints.MovieEndPoint;
+import com.thawdezin.roteshin.rest.interceptor.CacheControlInterceptor;
 import com.thawdezin.roteshin.rest.interceptor.NetworkConnectionInterceptor;
+import com.thawdezin.roteshin.rest.interceptor.RoteshinInterceptor;
 import com.thawdezin.roteshin.utils.LifecycleEventOneTimeObserver;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -24,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RestClient {
 
+    private static final String TAG = "RestClient";
     private static Retrofit sRetrofit;
 
     private static MovieEndPoint sMovieEndPoint;
@@ -33,22 +42,19 @@ public final class RestClient {
     private static Retrofit getRetrofit(Context context) {
         if (sRetrofit == null) {
 
-            long SIZE_OF_CACHE = 50 * 1024 * 1024; // 10 MB
-            Cache cache = new Cache(new File(context.getCacheDir(), "http"), SIZE_OF_CACHE);
+            long SIZE_OF_CACHE = 10 * 1024 * 1024; // 10 MB
+            Cache cache = null;
+            try{
+                cache = new Cache(new File(context.getCacheDir(), "http"), SIZE_OF_CACHE);
+            }catch (Exception e){
+                Log.e(TAG,"Unable to create CACHE");
+            }
+
 
             OkHttpClient okClientBuilder = new OkHttpClient.Builder()
                     .addNetworkInterceptor(new NetworkConnectionInterceptor(context))
-                    .addInterceptor(
-                            chain -> {
-                                Request request = chain.request();
-                                HttpUrl url = request.url().newBuilder()
-                                        .addQueryParameter("api_key","afd84ed60249491a627b9fb517b38ae0")
-                                        .addQueryParameter("language","en-US")
-                                        .addQueryParameter("page","1")
-                                        .build();
-                                request = request.newBuilder().url(url).build();
-                                return chain.proceed(request);
-                            })
+                    .addNetworkInterceptor(new CacheControlInterceptor(context))
+                    .addInterceptor(new RoteshinInterceptor(context))
                     .connectTimeout(5,TimeUnit.SECONDS)
                     .readTimeout(5,TimeUnit.SECONDS)
                     .writeTimeout(5,TimeUnit.SECONDS)
